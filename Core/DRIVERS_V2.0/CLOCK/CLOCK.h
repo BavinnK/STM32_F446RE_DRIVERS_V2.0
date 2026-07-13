@@ -1,0 +1,9 @@
+#ifndef CLOCK_H
+#define CLOCK_H
+
+#include "stdint.h"
+#include "stm32f446xx.h"
+
+void system_clk_180mhz(void);
+
+#endif
