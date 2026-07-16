@@ -36,6 +36,12 @@ typedef struct{
 	gpio_pupdr pupdr;
 }gpio_config_t;
 
+typedef enum{
+	GPIO_SET_LOW=0,
+	GPIO_SET_HIGH=1
+}gpio_set_level;
+
 void GPIO_init(GPIO_TypeDef* port,gpio_config_t *gpio_config);
+void GPIO_set_level(GPIO_TypeDef *port,uint8_t pin,gpio_set_level level);
 
 #endif

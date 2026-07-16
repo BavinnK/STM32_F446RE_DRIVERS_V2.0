@@ -1,1 +1,2 @@
 ../Core/DRIVERS_V2.0/GPIO/GPIO.c:14:6:GPIO_init	16	static
+../Core/DRIVERS_V2.0/GPIO/GPIO.c:29:6:GPIO_set_level	16	static
