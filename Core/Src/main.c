@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "CLOCK.h"
+#include "GPIO.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,11 +65,20 @@ int main(void)
 {
 	system_clk_180mhz();
 
+	gpio_config_t config={
+		.mode=GPIOx_MODE_OUTPUT,
+		.otype=GPIOx_OTYPE_PUSH_PULL,
+		.pin=5,
+		.pupdr=GPIOx_PUPDR_DISABLE,
+		.speed=GPIOx_SPEED_MED_SPEED
+	};
+
+	GPIO_init(GPIOA, &config);
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
-
+		GPIO_set_level(GPIOA, 5, GPIOx_SET_LOW);
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */

@@ -13,6 +13,8 @@ inline static void port_setup(GPIO_TypeDef* port){
 
 void GPIO_init(GPIO_TypeDef* port,gpio_config_t *gpio_config){
 
+	port_setup(port);
+
 	port->MODER&=~(3<<(gpio_config->pin*2));								//setting up MODER register, first clear then set
 	port->MODER|=((gpio_config->mode)<<(gpio_config->pin*2));
 
@@ -28,7 +30,7 @@ void GPIO_init(GPIO_TypeDef* port,gpio_config_t *gpio_config){
 
 void GPIO_set_level(GPIO_TypeDef *port,uint8_t pin,gpio_set_level level){
 	if(level==0){
-		port->BSRR&=~(1<<(pin+16));
+		port->BSRR|=(1<<(pin+16));
 	}
 	else if(level==1){
 		port->BSRR|=(1<<pin);
