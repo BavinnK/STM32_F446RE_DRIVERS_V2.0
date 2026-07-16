@@ -43,5 +43,6 @@ typedef enum{
 
 void GPIO_init(GPIO_TypeDef* port,gpio_config_t *gpio_config);
 void GPIO_set_level(GPIO_TypeDef *port,uint8_t pin,gpio_set_level level);
+uint8_t GPIO_read_pin(GPIO_TypeDef *port,uint8_t pin);
 
 #endif

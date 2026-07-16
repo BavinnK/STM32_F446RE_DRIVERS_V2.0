@@ -73,12 +73,30 @@ int main(void)
 		.speed=GPIOx_SPEED_MED_SPEED
 	};
 
+	gpio_config_t config1={
+			.mode=GPIOx_MODE_INPUT,
+			.otype=GPIOx_OTYPE_PUSH_PULL,
+			.pin=13,
+			.pupdr=GPIOx_PUPDR_DISABLE,
+			.speed=GPIOx_SPEED_MED_SPEED
+		};
+
 	GPIO_init(GPIOA, &config);
+
+	GPIO_init(GPIOC, &config1);
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
-		GPIO_set_level(GPIOA, 5, GPIOx_SET_LOW);
+		uint8_t data=GPIO_read_pin(GPIOC, 13);
+		if(data==1){
+			GPIO_set_level(GPIOA, 5, GPIOx_SET_HIGH);
+		}
+		else if(data==0){
+			GPIO_set_level(GPIOA, 5, GPIOx_SET_LOW);
+
+		}
+
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
