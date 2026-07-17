@@ -95,10 +95,6 @@ Discarded input sections
  .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .text.delay_us
                 0x00000000       0x48 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
- .text.systick_init
-                0x00000000       0x28 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
- .text.delay_ms
-                0x00000000       0x30 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_macro   0x00000000       0x8e ./Core/DRIVERS_V2.0/DELAY/DELAY.o
@@ -130,6 +126,8 @@ Discarded input sections
  .text          0x00000000        0x0 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .data          0x00000000        0x0 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
+ .text.GPIO_read_pin
+                0x00000000       0x30 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .debug_macro   0x00000000       0x8e ./Core/DRIVERS_V2.0/GPIO/GPIO.o
@@ -2503,22 +2501,25 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
  .text.system_clk_180mhz
                 0x08000204      0x110 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
                 0x08000204                system_clk_180mhz
+ .text.systick_init
+                0x08000314       0x28 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
+                0x08000314                systick_init
+ .text.delay_ms
+                0x0800033c       0x30 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
+                0x0800033c                delay_ms
  .text.SysTick_Handler
-                0x08000314       0x1c ./Core/DRIVERS_V2.0/DELAY/DELAY.o
-                0x08000314                SysTick_Handler
+                0x0800036c       0x1c ./Core/DRIVERS_V2.0/DELAY/DELAY.o
+                0x0800036c                SysTick_Handler
  .text.port_setup
-                0x08000330       0x64 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
+                0x08000388       0x64 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .text.GPIO_init
-                0x08000394       0xdc ./Core/DRIVERS_V2.0/GPIO/GPIO.o
-                0x08000394                GPIO_init
+                0x080003ec       0xdc ./Core/DRIVERS_V2.0/GPIO/GPIO.o
+                0x080003ec                GPIO_init
  .text.GPIO_set_level
-                0x08000470       0x50 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
-                0x08000470                GPIO_set_level
- .text.GPIO_read_pin
-                0x080004c0       0x30 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
-                0x080004c0                GPIO_read_pin
- .text.main     0x080004f0       0x80 ./Core/Src/main.o
-                0x080004f0                main
+                0x080004c8       0x50 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
+                0x080004c8                GPIO_set_level
+ .text.main     0x08000518       0x58 ./Core/Src/main.o
+                0x08000518                main
  .text.NMI_Handler
                 0x08000570        0x8 ./Core/Src/stm32f4xx_it.o
                 0x08000570                NMI_Handler
@@ -2669,56 +2670,56 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
 .iplt           0x0800069c        0x0
  .iplt          0x0800069c        0x0 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x0800069c       0x10
+.rodata         0x0800069c        0x8
                 0x0800069c                        . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x0800069c        0xd ./Core/Src/main.o
+ .rodata        0x0800069c        0x5 ./Core/Src/main.o
  *(.rodata*)
-                0x080006ac                        . = ALIGN (0x4)
- *fill*         0x080006a9        0x3 
+                0x080006a4                        . = ALIGN (0x4)
+ *fill*         0x080006a1        0x3 
 
-.ARM.extab      0x080006ac        0x0
-                0x080006ac                        . = ALIGN (0x4)
+.ARM.extab      0x080006a4        0x0
+                0x080006a4                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080006ac                        . = ALIGN (0x4)
+                0x080006a4                        . = ALIGN (0x4)
 
-.ARM            0x080006ac        0x0
-                0x080006ac                        . = ALIGN (0x4)
-                0x080006ac                        __exidx_start = .
+.ARM            0x080006a4        0x0
+                0x080006a4                        . = ALIGN (0x4)
+                0x080006a4                        __exidx_start = .
  *(.ARM.exidx*)
-                0x080006ac                        __exidx_end = .
-                0x080006ac                        . = ALIGN (0x4)
+                0x080006a4                        __exidx_end = .
+                0x080006a4                        . = ALIGN (0x4)
 
-.preinit_array  0x080006ac        0x0
-                0x080006ac                        . = ALIGN (0x4)
-                0x080006ac                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x080006a4        0x0
+                0x080006a4                        . = ALIGN (0x4)
+                0x080006a4                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080006ac                        PROVIDE (__preinit_array_end = .)
-                0x080006ac                        . = ALIGN (0x4)
+                0x080006a4                        PROVIDE (__preinit_array_end = .)
+                0x080006a4                        . = ALIGN (0x4)
 
-.init_array     0x080006ac        0x4
-                0x080006ac                        . = ALIGN (0x4)
-                0x080006ac                        PROVIDE (__init_array_start = .)
+.init_array     0x080006a4        0x4
+                0x080006a4                        . = ALIGN (0x4)
+                0x080006a4                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x080006ac        0x4 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080006b0                        PROVIDE (__init_array_end = .)
-                0x080006b0                        . = ALIGN (0x4)
+ .init_array    0x080006a4        0x4 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x080006a8                        PROVIDE (__init_array_end = .)
+                0x080006a8                        . = ALIGN (0x4)
 
-.fini_array     0x080006b0        0x4
-                0x080006b0                        . = ALIGN (0x4)
+.fini_array     0x080006a8        0x4
+                0x080006a8                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080006b0        0x4 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .fini_array    0x080006a8        0x4 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x080006b4                        . = ALIGN (0x4)
-                0x080006b4                        _sidata = LOADADDR (.data)
+                0x080006ac                        . = ALIGN (0x4)
+                0x080006ac                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x080006b4        0x0
- .rel.iplt      0x080006b4        0x0 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x080006ac        0x0
+ .rel.iplt      0x080006ac        0x0 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.data           0x20000000        0x0 load address 0x080006b4
+.data           0x20000000        0x0 load address 0x080006ac
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -2728,11 +2729,11 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _edata = .
 
-.igot.plt       0x20000000        0x0 load address 0x080006b4
+.igot.plt       0x20000000        0x0 load address 0x080006ac
  .igot.plt      0x20000000        0x0 C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 0x20000000                        . = ALIGN (0x4)
 
-.bss            0x20000000       0x20 load address 0x080006b4
+.bss            0x20000000       0x20 load address 0x080006ac
                 0x20000000                        _sbss = .
                 0x20000000                        __bss_start__ = _sbss
  *(.bss)
@@ -2746,7 +2747,7 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
                 0x20000020                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20000020      0x600 load address 0x080006b4
+                0x20000020      0x600 load address 0x080006ac
                 0x20000020                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 0x20000020                        PROVIDE (_end = .)
@@ -2792,23 +2793,23 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
 LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a
 LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.win32_1.0.0.202411081344/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x00000000     0x12ea
+.debug_info     0x00000000     0x12c3
  .debug_info    0x00000000      0x2ec ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_info    0x000002ec      0x160 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_info    0x0000044c      0x4ea ./Core/DRIVERS_V2.0/GPIO/GPIO.o
- .debug_info    0x00000936      0x342 ./Core/Src/main.o
- .debug_info    0x00000c78       0xf8 ./Core/Src/stm32f4xx_it.o
- .debug_info    0x00000d70      0x54a ./Core/Src/system_stm32f4xx.o
- .debug_info    0x000012ba       0x30 ./Core/Startup/startup_stm32f446retx.o
+ .debug_info    0x00000936      0x31b ./Core/Src/main.o
+ .debug_info    0x00000c51       0xf8 ./Core/Src/stm32f4xx_it.o
+ .debug_info    0x00000d49      0x54a ./Core/Src/system_stm32f4xx.o
+ .debug_info    0x00001293       0x30 ./Core/Startup/startup_stm32f446retx.o
 
-.debug_abbrev   0x00000000      0x683
+.debug_abbrev   0x00000000      0x662
  .debug_abbrev  0x00000000       0xb5 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_abbrev  0x000000b5      0x111 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_abbrev  0x000001c6      0x187 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
- .debug_abbrev  0x0000034d      0x1b1 ./Core/Src/main.o
- .debug_abbrev  0x000004fe       0x47 ./Core/Src/stm32f4xx_it.o
- .debug_abbrev  0x00000545      0x11a ./Core/Src/system_stm32f4xx.o
- .debug_abbrev  0x0000065f       0x24 ./Core/Startup/startup_stm32f446retx.o
+ .debug_abbrev  0x0000034d      0x190 ./Core/Src/main.o
+ .debug_abbrev  0x000004dd       0x47 ./Core/Src/stm32f4xx_it.o
+ .debug_abbrev  0x00000524      0x11a ./Core/Src/system_stm32f4xx.o
+ .debug_abbrev  0x0000063e       0x24 ./Core/Startup/startup_stm32f446retx.o
 
 .debug_aranges  0x00000000      0x160
  .debug_aranges
@@ -2827,7 +2828,7 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
                 0x00000138       0x28 ./Core/Startup/startup_stm32f446retx.o
 
 .debug_rnglists
-                0x00000000       0xe9
+                0x00000000       0xe8
  .debug_rnglists
                 0x00000000       0x14 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_rnglists
@@ -2835,15 +2836,15 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
  .debug_rnglists
                 0x00000039       0x26 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
  .debug_rnglists
-                0x0000005f       0x1a ./Core/Src/main.o
+                0x0000005f       0x19 ./Core/Src/main.o
  .debug_rnglists
-                0x00000079       0x3d ./Core/Src/stm32f4xx_it.o
+                0x00000078       0x3d ./Core/Src/stm32f4xx_it.o
  .debug_rnglists
-                0x000000b6       0x1a ./Core/Src/system_stm32f4xx.o
+                0x000000b5       0x1a ./Core/Src/system_stm32f4xx.o
  .debug_rnglists
-                0x000000d0       0x19 ./Core/Startup/startup_stm32f446retx.o
+                0x000000cf       0x19 ./Core/Startup/startup_stm32f446retx.o
 
-.debug_macro    0x00000000    0x1f4cf
+.debug_macro    0x00000000    0x1f4d9
  .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_macro   0x000000c9      0xad8 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_macro   0x00000ba1       0x22 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
@@ -2861,51 +2862,51 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
  .debug_macro   0x0000227f    0x16749 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_macro   0x000189c8       0xc9 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_macro   0x00018a91       0xc9 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
- .debug_macro   0x00018b5a      0x1d7 ./Core/Src/main.o
- .debug_macro   0x00018d31      0x28f ./Core/Src/main.o
- .debug_macro   0x00018fc0       0x2e ./Core/Src/main.o
- .debug_macro   0x00018fee       0x6d ./Core/Src/main.o
- .debug_macro   0x0001905b     0x368c ./Core/Src/main.o
- .debug_macro   0x0001c6e7      0x190 ./Core/Src/main.o
- .debug_macro   0x0001c877       0x5c ./Core/Src/main.o
- .debug_macro   0x0001c8d3      0xca5 ./Core/Src/main.o
- .debug_macro   0x0001d578      0x9e9 ./Core/Src/main.o
- .debug_macro   0x0001df61      0x115 ./Core/Src/main.o
- .debug_macro   0x0001e076      0x1a0 ./Core/Src/main.o
- .debug_macro   0x0001e216       0xa5 ./Core/Src/main.o
- .debug_macro   0x0001e2bb      0x16d ./Core/Src/main.o
- .debug_macro   0x0001e428      0x287 ./Core/Src/main.o
- .debug_macro   0x0001e6af       0x5f ./Core/Src/main.o
- .debug_macro   0x0001e70e      0x236 ./Core/Src/main.o
- .debug_macro   0x0001e944      0x132 ./Core/Src/main.o
- .debug_macro   0x0001ea76      0x29c ./Core/Src/main.o
- .debug_macro   0x0001ed12       0x2e ./Core/Src/main.o
- .debug_macro   0x0001ed40      0x127 ./Core/Src/main.o
- .debug_macro   0x0001ee67       0xe8 ./Core/Src/main.o
- .debug_macro   0x0001ef4f       0x89 ./Core/Src/main.o
- .debug_macro   0x0001efd8      0x126 ./Core/Src/main.o
- .debug_macro   0x0001f0fe       0x58 ./Core/Src/main.o
- .debug_macro   0x0001f156      0x1c9 ./Core/Src/stm32f4xx_it.o
- .debug_macro   0x0001f31f      0x1b0 ./Core/Src/system_stm32f4xx.o
+ .debug_macro   0x00018b5a      0x1e1 ./Core/Src/main.o
+ .debug_macro   0x00018d3b      0x28f ./Core/Src/main.o
+ .debug_macro   0x00018fca       0x2e ./Core/Src/main.o
+ .debug_macro   0x00018ff8       0x6d ./Core/Src/main.o
+ .debug_macro   0x00019065     0x368c ./Core/Src/main.o
+ .debug_macro   0x0001c6f1      0x190 ./Core/Src/main.o
+ .debug_macro   0x0001c881       0x5c ./Core/Src/main.o
+ .debug_macro   0x0001c8dd      0xca5 ./Core/Src/main.o
+ .debug_macro   0x0001d582      0x9e9 ./Core/Src/main.o
+ .debug_macro   0x0001df6b      0x115 ./Core/Src/main.o
+ .debug_macro   0x0001e080      0x1a0 ./Core/Src/main.o
+ .debug_macro   0x0001e220       0xa5 ./Core/Src/main.o
+ .debug_macro   0x0001e2c5      0x16d ./Core/Src/main.o
+ .debug_macro   0x0001e432      0x287 ./Core/Src/main.o
+ .debug_macro   0x0001e6b9       0x5f ./Core/Src/main.o
+ .debug_macro   0x0001e718      0x236 ./Core/Src/main.o
+ .debug_macro   0x0001e94e      0x132 ./Core/Src/main.o
+ .debug_macro   0x0001ea80      0x29c ./Core/Src/main.o
+ .debug_macro   0x0001ed1c       0x2e ./Core/Src/main.o
+ .debug_macro   0x0001ed4a      0x127 ./Core/Src/main.o
+ .debug_macro   0x0001ee71       0xe8 ./Core/Src/main.o
+ .debug_macro   0x0001ef59       0x89 ./Core/Src/main.o
+ .debug_macro   0x0001efe2      0x126 ./Core/Src/main.o
+ .debug_macro   0x0001f108       0x58 ./Core/Src/main.o
+ .debug_macro   0x0001f160      0x1c9 ./Core/Src/stm32f4xx_it.o
+ .debug_macro   0x0001f329      0x1b0 ./Core/Src/system_stm32f4xx.o
 
-.debug_line     0x00000000     0x2d45
+.debug_line     0x00000000     0x2d98
  .debug_line    0x00000000      0x674 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
  .debug_line    0x00000674      0x643 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
  .debug_line    0x00000cb7      0x6c1 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
- .debug_line    0x00001378      0x8ab ./Core/Src/main.o
- .debug_line    0x00001c23      0x85d ./Core/Src/stm32f4xx_it.o
- .debug_line    0x00002480      0x84b ./Core/Src/system_stm32f4xx.o
- .debug_line    0x00002ccb       0x7a ./Core/Startup/startup_stm32f446retx.o
+ .debug_line    0x00001378      0x8fe ./Core/Src/main.o
+ .debug_line    0x00001c76      0x85d ./Core/Src/stm32f4xx_it.o
+ .debug_line    0x000024d3      0x84b ./Core/Src/system_stm32f4xx.o
+ .debug_line    0x00002d1e       0x7a ./Core/Startup/startup_stm32f446retx.o
 
-.debug_str      0x00000000    0xc0b3b
- .debug_str     0x00000000    0xc0b3b ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
+.debug_str      0x00000000    0xc0b2e
+ .debug_str     0x00000000    0xc0b2e ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o
                               0x8ab26 (size before relaxing)
- .debug_str     0x000c0b3b    0x8aa19 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
- .debug_str     0x000c0b3b    0x8acf3 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
- .debug_str     0x000c0b3b    0xc09eb ./Core/Src/main.o
- .debug_str     0x000c0b3b    0xc0825 ./Core/Src/stm32f4xx_it.o
- .debug_str     0x000c0b3b    0xc086a ./Core/Src/system_stm32f4xx.o
- .debug_str     0x000c0b3b       0x82 ./Core/Startup/startup_stm32f446retx.o
+ .debug_str     0x000c0b2e    0x8aa19 ./Core/DRIVERS_V2.0/DELAY/DELAY.o
+ .debug_str     0x000c0b2e    0x8acf3 ./Core/DRIVERS_V2.0/GPIO/GPIO.o
+ .debug_str     0x000c0b2e    0xc09ef ./Core/Src/main.o
+ .debug_str     0x000c0b2e    0xc0825 ./Core/Src/stm32f4xx_it.o
+ .debug_str     0x000c0b2e    0xc086a ./Core/Src/system_stm32f4xx.o
+ .debug_str     0x000c0b2e       0x82 ./Core/Startup/startup_stm32f446retx.o
 
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 ./Core/DRIVERS_V2.0/CLOCK/CLOCK.o

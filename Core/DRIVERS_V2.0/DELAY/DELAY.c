@@ -15,7 +15,7 @@ void delay_us(uint32_t us){
 }
 
 void systick_init(void){
-	SysTick->LOAD=1800000-1;		//1 cycle takes 5.56ns, cycle=freq*time means to get 1ms we need a 1800000 cycles, then minus one cuz it counts from zero
+	SysTick->LOAD=180000-1;		//1 cycle takes 5.56ns, cycle=freq*time means to get 1ms we need a 1800000 cycles, then minus one cuz it counts from zero
 	SysTick->VAL=0;
 
 	SysTick->CTRL=(1<<0)|			//enable systick timer
