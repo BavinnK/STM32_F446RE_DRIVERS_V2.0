@@ -5,23 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Core/DRIVERS_V2.0/GPIO/GPIO.c 
+../Core/DRIVERS_V2.0/DELAY/DELAY.c 
 
 OBJS += \
-./Core/DRIVERS_V2.0/GPIO/GPIO.o 
+./Core/DRIVERS_V2.0/DELAY/DELAY.o 
 
 C_DEPS += \
-./Core/DRIVERS_V2.0/GPIO/GPIO.d 
+./Core/DRIVERS_V2.0/DELAY/DELAY.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Core/DRIVERS_V2.0/GPIO/%.o Core/DRIVERS_V2.0/GPIO/%.su Core/DRIVERS_V2.0/GPIO/%.cyclo: ../Core/DRIVERS_V2.0/GPIO/%.c Core/DRIVERS_V2.0/GPIO/subdir.mk
+Core/DRIVERS_V2.0/DELAY/%.o Core/DRIVERS_V2.0/DELAY/%.su Core/DRIVERS_V2.0/DELAY/%.cyclo: ../Core/DRIVERS_V2.0/DELAY/%.c Core/DRIVERS_V2.0/DELAY/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I"C:/Users/pc/Desktop/STM_PROJECTS/BAREMETAL_DRIVERS_V2.0/Core/DRIVERS_V2.0/GPIO" -I"C:/Users/pc/Desktop/STM_PROJECTS/BAREMETAL_DRIVERS_V2.0/Core/DRIVERS_V2.0/GPIO" -I"C:/Users/pc/Desktop/STM_PROJECTS/BAREMETAL_DRIVERS_V2.0/Core/DRIVERS_V2.0" -I"C:/Users/pc/Desktop/STM_PROJECTS/BAREMETAL_DRIVERS_V2.0/Core/DRIVERS_V2.0/CLOCK" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-Core-2f-DRIVERS_V2-2e-0-2f-GPIO
+clean: clean-Core-2f-DRIVERS_V2-2e-0-2f-DELAY
 
-clean-Core-2f-DRIVERS_V2-2e-0-2f-GPIO:
-	-$(RM) ./Core/DRIVERS_V2.0/GPIO/GPIO.cyclo ./Core/DRIVERS_V2.0/GPIO/GPIO.d ./Core/DRIVERS_V2.0/GPIO/GPIO.o ./Core/DRIVERS_V2.0/GPIO/GPIO.su
+clean-Core-2f-DRIVERS_V2-2e-0-2f-DELAY:
+	-$(RM) ./Core/DRIVERS_V2.0/DELAY/DELAY.cyclo ./Core/DRIVERS_V2.0/DELAY/DELAY.d ./Core/DRIVERS_V2.0/DELAY/DELAY.o ./Core/DRIVERS_V2.0/DELAY/DELAY.su
 
-.PHONY: clean-Core-2f-DRIVERS_V2-2e-0-2f-GPIO
+.PHONY: clean-Core-2f-DRIVERS_V2-2e-0-2f-DELAY
 

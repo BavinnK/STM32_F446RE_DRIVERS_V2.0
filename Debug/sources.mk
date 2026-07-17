@@ -23,6 +23,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/DRIVERS_V2.0/CLOCK \
+Core/DRIVERS_V2.0/DELAY \
 Core/DRIVERS_V2.0/GPIO \
 Core/Src \
 Core/Startup \

@@ -1,4 +1,5 @@
 "./Core/DRIVERS_V2.0/CLOCK/CLOCK.o"
+"./Core/DRIVERS_V2.0/DELAY/DELAY.o"
 "./Core/DRIVERS_V2.0/GPIO/GPIO.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
