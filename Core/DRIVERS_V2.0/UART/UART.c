@@ -22,6 +22,26 @@ static inline uint32_t set_baud(uint32_t baud){
 }
 
 void UART2_init(uint32_t baudrate){
+	gpio_config_t TX_setup={
+			.pin=2,
+			.mode=GPIOx_MODE_ALTERNATE,
+			.otype=GPIOx_OTYPE_PUSH_PULL,
+			.speed=GPIOx_SPEED_HIGH_SPEED,
+			.pupdr=GPIOx_PUPDR_DISABLE
+	};
+	gpio_config_t RX_setup={
+			.pin=3,
+			.mode=GPIOx_MODE_ALTERNATE,
+			.otype=GPIOx_OTYPE_PUSH_PULL,
+			.speed=GPIOx_SPEED_HIGH_SPEED,
+			.pupdr=GPIOx_PUPDR_DISABLE
+	};
+
+	GPIO_init(GPIOA, &TX_setup);
+	GPIO_init(GPIOA, &RX_setup);
+	GPIOA->AFR[0]&=~(0b11111111<<8);
+	GPIOA->AFR[0]|=(0b0111<<12)|(0b0111<<8);
+
 	RCC->APB1ENR|=(1<<17);			//EN USART2 CLK
 
 	USART2->CR1|=(1<<13)|			//EN USART
@@ -40,7 +60,10 @@ void UART2_init(uint32_t baudrate){
 
 void UART2_write_byte(uint8_t byte){
 	while(busy_flag==1);
+	busy_flag=1;
+	data=byte;
 	USART2->CR1|=(1<<7);
+
 }
 
 void USART2_IRQHandler(void){

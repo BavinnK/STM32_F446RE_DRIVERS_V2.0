@@ -24,6 +24,7 @@
 #include "CLOCK.h"
 #include "GPIO.h"
 #include "DELAY.h"
+#include "UART.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -80,14 +81,17 @@ int main(void)
 
 	systick_init();
 
+	UART2_init(9600);
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
 
 			GPIO_set_level(GPIOA, 5, GPIOx_SET_HIGH);
+			UART2_write_byte('1');
 			delay_ms(1000);
 			GPIO_set_level(GPIOA, 5, GPIOx_SET_LOW);
+			UART2_write_byte('0');
 			delay_ms(1000);
 
 
