@@ -1,0 +1,2 @@
+../Core/DRIVERS_V2.0/UART/UART.c:3:24:set_baud	16	static
+../Core/DRIVERS_V2.0/UART/UART.c:23:6:UART2_init	24	static
