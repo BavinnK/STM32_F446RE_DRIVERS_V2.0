@@ -1,5 +1,6 @@
 #include "UART.h"
 
+volatile uint8_t data=0,busy_flag=0;
 static inline uint32_t set_baud(uint32_t baud){
 	/*
 	 * the reason i did not put any equation to get the BRR parts which are
@@ -33,4 +34,21 @@ void UART2_init(uint32_t baudrate){
 	uint32_t baud=set_baud(baudrate);
 
 	USART2->BRR=baud;
+
+	NVIC_EnableIRQ(USART2_IRQn);
+}
+
+void UART2_write_byte(uint8_t byte){
+	while(busy_flag==1);
+	USART2->CR1|=(1<<7);
+}
+
+void USART2_IRQHandler(void){
+	if(USART2->SR&(1<<7)){
+		USART2->DR=data;
+		USART2->CR1&=~(1<<7);
+		busy_flag=0;
+	}
+
+
 }

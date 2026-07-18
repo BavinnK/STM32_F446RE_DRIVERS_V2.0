@@ -4,4 +4,7 @@
 #include "stdint.h"
 #include "stm32f446xx.h"
 
+void UART2_init(uint32_t baudrate);
+
+
 #endif
