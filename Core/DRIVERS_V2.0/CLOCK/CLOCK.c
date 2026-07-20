@@ -4,8 +4,12 @@ void system_clk_180mhz(void){
 	RCC->CR|=(1<<16);					//enable HSE CLK
 	while(!(RCC->CR&(1<<17)));			//wait until HSI is ready
 
+	RCC->PLLCFGR&=~(0b111111);					//DIVIDE HSE BY 8
+	RCC->PLLCFGR&=~(0b111111111<<6);				//MULTIPLY BY 360
+
 	RCC->PLLCFGR|=(8);					//DIVIDE HSE BY 8
 	RCC->PLLCFGR|=(360<<6);				//MULTIPLY BY 360
+	RCC->PLLCFGR|=(1<<22);
 	RCC->PLLCFGR&=~(3<<16);				//DIVIDE BY 2
 
 	RCC->CFGR&=~((7<<10)|(7<<13));  	//since perpherials on both APB1 AND APB2 CAN'T run at 180mhz wee need to slow them down

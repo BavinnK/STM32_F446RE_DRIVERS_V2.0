@@ -81,7 +81,7 @@ int main(void)
 
 	systick_init();
 
-	UART2_init(9600);
+	UART2_init(115200);
 
 	while (1)
 	{

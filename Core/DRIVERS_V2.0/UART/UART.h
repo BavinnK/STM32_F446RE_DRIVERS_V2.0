@@ -6,6 +6,8 @@
 #include "GPIO.h"
 
 void UART2_init(uint32_t baudrate);
+void UART2_write_byte(char byte);
+
 
 
 #endif

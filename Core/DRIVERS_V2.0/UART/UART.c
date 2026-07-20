@@ -23,18 +23,18 @@ static inline uint32_t set_baud(uint32_t baud){
 
 void UART2_init(uint32_t baudrate){
 	gpio_config_t TX_setup={
-			.pin=2,
-			.mode=GPIOx_MODE_ALTERNATE,
-			.otype=GPIOx_OTYPE_PUSH_PULL,
-			.speed=GPIOx_SPEED_HIGH_SPEED,
-			.pupdr=GPIOx_PUPDR_DISABLE
+		.pin=2,
+		.mode=GPIOx_MODE_ALTERNATE,
+		.otype=GPIOx_OTYPE_PUSH_PULL,
+		.speed=GPIOx_SPEED_HIGH_SPEED,
+		.pupdr=GPIOx_PUPDR_DISABLE
 	};
 	gpio_config_t RX_setup={
-			.pin=3,
-			.mode=GPIOx_MODE_ALTERNATE,
-			.otype=GPIOx_OTYPE_PUSH_PULL,
-			.speed=GPIOx_SPEED_HIGH_SPEED,
-			.pupdr=GPIOx_PUPDR_DISABLE
+		.pin=3,
+		.mode=GPIOx_MODE_ALTERNATE,
+		.otype=GPIOx_OTYPE_PUSH_PULL,
+		.speed=GPIOx_SPEED_HIGH_SPEED,
+		.pupdr=GPIOx_PUPDR_DISABLE
 	};
 
 	GPIO_init(GPIOA, &TX_setup);
@@ -58,7 +58,7 @@ void UART2_init(uint32_t baudrate){
 	NVIC_EnableIRQ(USART2_IRQn);
 }
 
-void UART2_write_byte(uint8_t byte){
+void UART2_write_byte(char byte){
 	while(busy_flag==1);
 	busy_flag=1;
 	data=byte;
@@ -68,7 +68,7 @@ void UART2_write_byte(uint8_t byte){
 
 void USART2_IRQHandler(void){
 	if(USART2->SR&(1<<7)){
-		USART2->DR=data;
+		USART2->DR=(char)data;
 		USART2->CR1&=~(1<<7);
 		busy_flag=0;
 	}
