@@ -1,3 +1,4 @@
 ../Core/DRIVERS_V2.0/ADC/ADC.c:3:20:adc_on	16	static
-../Core/DRIVERS_V2.0/ADC/ADC.c:9:6:ADCx_init	32	static
-../Core/DRIVERS_V2.0/ADC/ADC.c:20:6:ADCx_chn_config	16	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:9:20:channel_adc	16	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:21:6:ADCx_init	32	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:36:6:ADCx_chn_config	16	static
