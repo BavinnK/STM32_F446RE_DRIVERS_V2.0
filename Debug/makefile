@@ -16,6 +16,7 @@ RM := rm -rf
 -include Core/DRIVERS_V2.0/GPIO/subdir.mk
 -include Core/DRIVERS_V2.0/DELAY/subdir.mk
 -include Core/DRIVERS_V2.0/CLOCK/subdir.mk
+-include Core/DRIVERS_V2.0/ADC/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

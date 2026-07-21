@@ -1,0 +1,3 @@
+../Core/DRIVERS_V2.0/ADC/ADC.c:3:20:adc_on	4
+../Core/DRIVERS_V2.0/ADC/ADC.c:9:6:ADCx_init	1
+../Core/DRIVERS_V2.0/ADC/ADC.c:20:6:ADCx_chn_config	1
