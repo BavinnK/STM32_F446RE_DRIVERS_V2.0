@@ -34,5 +34,29 @@ void ADCx_init(ADC_TypeDef *adc,GPIO_TypeDef *port,uint8_t pin,uint8_t chn){
 }
 
 void ADCx_chn_config(ADC_TypeDef *adc,uint8_t channel,uint8_t rank){
-
+	uint16_t shift;
+	if(rank>0 && rank<=6){
+		shift=(rank-1)*5;
+		adc->SQR3&=~(0b1111<<shift);
+		adc->SQR3|=(channel<<shift);
+	}
+	else if(rank>6 && rank<13){
+		shift=(rank-1)*5;
+		adc->SQR2&=~(0b1111<<shift);
+		adc->SQR2|=(channel<<shift);
+	}
+	else if(rank>=13 && rank<=16){
+		shift=(rank-1)*5;
+		adc->SQR1&=~(0b1111<<shift);
+		adc->SQR1|=(channel<<shift);
+	}
 }
+
+uint16_t ADCx_read(ADC_TypeDef *adc){
+	adc->CR2&=~(1<<30);
+	adc->CR2|=(1<<30);
+
+	return adc->DR;
+}
+
+
