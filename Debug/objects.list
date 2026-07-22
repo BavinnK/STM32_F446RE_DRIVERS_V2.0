@@ -1,6 +1,7 @@
 "./Core/DRIVERS_V2.0/ADC/ADC.o"
 "./Core/DRIVERS_V2.0/CLOCK/CLOCK.o"
 "./Core/DRIVERS_V2.0/DELAY/DELAY.o"
+"./Core/DRIVERS_V2.0/DMA/DMA.o"
 "./Core/DRIVERS_V2.0/GPIO/GPIO.o"
 "./Core/DRIVERS_V2.0/UART/UART.o"
 "./Core/Src/main.o"
