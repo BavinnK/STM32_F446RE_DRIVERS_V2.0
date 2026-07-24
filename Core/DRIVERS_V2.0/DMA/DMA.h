@@ -50,4 +50,7 @@ typedef struct{
 	dma_mode mode;
 }
 dma_config_t;
+
+void DMAx_init(DMA_TypeDef *DMAx  ,dma_config_t *dma);
+
 #endif
