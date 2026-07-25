@@ -18,13 +18,14 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "CLOCK.h"
 #include "GPIO.h"
 #include "DELAY.h"
 #include "UART.h"
+#include "ADC.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,16 +82,19 @@ int main(void)
 
 	systick_init();
 
+	ADCx_init(ADC1, GPIOA, 0, 0);
+	ADCx_chn_config(ADC1, 0, 1);
+	ADCx_sequence_length(ADC1, 1);
 	UART2_init(115200);
-
+	char buff[100];
 	while (1)
 	{
 		/* USER CODE END WHILE */
-			char sm[]={"sup ma boi\n\r"};
-			GPIO_set_level(GPIOA, 5, GPIOx_SET_HIGH);
-			UART2_write_string(sm);
-			delay_ms(1000);
-
+		uint16_t data=0;
+		data=ADCx_read(ADC1);
+		sprintf(buff,"ADC: %d\n\r",data);
+		UART2_write_string(buff);
+		delay_ms(100);
 
 
 

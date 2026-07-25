@@ -1,5 +1,6 @@
 ../Core/DRIVERS_V2.0/ADC/ADC.c:3:20:adc_on	16	static
 ../Core/DRIVERS_V2.0/ADC/ADC.c:9:20:channel_adc	16	static
 ../Core/DRIVERS_V2.0/ADC/ADC.c:21:6:ADCx_init	32	static
-../Core/DRIVERS_V2.0/ADC/ADC.c:36:6:ADCx_chn_config	24	static
-../Core/DRIVERS_V2.0/ADC/ADC.c:55:10:ADCx_read	16	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:37:6:ADCx_chn_config	24	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:56:10:ADCx_read	16	static
+../Core/DRIVERS_V2.0/ADC/ADC.c:63:6:ADCx_sequence_length	16	static
