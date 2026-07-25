@@ -63,7 +63,12 @@ void UART2_write_byte(char byte){
 	busy_flag=1;
 	data=byte;
 	USART2->CR1|=(1<<7);
+}
 
+void UART2_write_string(char *ptr){
+	while(*ptr){
+		UART2_write_byte(*ptr++);
+	}
 }
 
 void USART2_IRQHandler(void){

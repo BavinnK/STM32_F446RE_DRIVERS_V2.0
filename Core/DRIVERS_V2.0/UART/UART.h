@@ -7,6 +7,8 @@
 
 void UART2_init(uint32_t baudrate);
 void UART2_write_byte(char byte);
+void UART2_write_string(char *ptr);
+
 
 
 

@@ -86,13 +86,11 @@ int main(void)
 	while (1)
 	{
 		/* USER CODE END WHILE */
-
+			char sm[]={"sup ma boi\n\r"};
 			GPIO_set_level(GPIOA, 5, GPIOx_SET_HIGH);
-			UART2_write_byte('1');
+			UART2_write_string(sm);
 			delay_ms(1000);
-			GPIO_set_level(GPIOA, 5, GPIOx_SET_LOW);
-			UART2_write_byte('0');
-			delay_ms(1000);
+
 
 
 

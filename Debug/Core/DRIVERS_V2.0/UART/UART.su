@@ -2,4 +2,5 @@
 ../Core/DRIVERS_V2.0/UART/UART.c:4:24:set_baud	16	static
 ../Core/DRIVERS_V2.0/UART/UART.c:24:6:UART2_init	40	static
 ../Core/DRIVERS_V2.0/UART/UART.c:61:6:UART2_write_byte	16	static
-../Core/DRIVERS_V2.0/UART/UART.c:69:6:USART2_IRQHandler	4	static
+../Core/DRIVERS_V2.0/UART/UART.c:68:6:UART2_write_string	16	static
+../Core/DRIVERS_V2.0/UART/UART.c:74:6:USART2_IRQHandler	4	static
