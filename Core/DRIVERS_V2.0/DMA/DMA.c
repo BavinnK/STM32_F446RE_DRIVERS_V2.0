@@ -24,10 +24,11 @@ static inline void clear_flags(DMA_Stream_TypeDef *stream){
 	else if(stream==DMA2_Stream7) DMA2->HIFCR|=(1<<22)|(0b1111<<24);
 }
 
-void DMAx_init(DMA_TypeDef *DMAx  ,dma_config_t *dma){
+void DMAx_init(DMA_TypeDef *DMAx,dma_config_t *dma){
 	dma_config(DMAx);
 
-	dma->stream->CR&=~((7<<25)|(3<<23)|(3<<21)|(3<<16)|(3<<13)|(3<<11)|(1<<8)|(3<<6)|(1<<0));
+	dma->stream->CR=0;
+	while(dma->stream->CR&(1<<0));
 	dma->stream->CR|=(dma->channel<<25)|
 				(dma->m_burst<<23)|
 				(dma->p_burst<<21)|
@@ -39,7 +40,8 @@ void DMAx_init(DMA_TypeDef *DMAx  ,dma_config_t *dma){
 
 	clear_flags(dma->stream);
 	dma->stream->NDTR=dma->length;
-
 	dma->stream->PAR=(uint32_t)dma->per_addr;
 	dma->stream->M0AR=(uint32_t)dma->mem_addr;
+	dma->stream->M1AR=0;
+	dma->stream->CR|=(1<<0);
 }

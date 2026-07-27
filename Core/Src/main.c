@@ -25,7 +25,9 @@
 #include "GPIO.h"
 #include "DELAY.h"
 #include "UART.h"
-#include "ADC.h"
+//#include "ADC.h"
+#include "DMA.h"
+#include "ADC_DMA.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,18 +83,35 @@ int main(void)
 	GPIO_init(GPIOA, &config);
 
 	systick_init();
-
-	ADCx_init(ADC1, GPIOA, 0, 0);
-	ADCx_chn_config(ADC1, 0, 1);
-	ADCx_sequence_length(ADC1, 1);
-	UART2_init(115200);
 	char buff[100];
+	uint16_t data=0;
+	dma_config_t dma_setup={
+		.stream=DMA2_Stream0,
+		.channel=0,
+		.m_burst=SINGLE,
+		.p_burst=SINGLE,
+		.priority=HIGH,
+		.m_data_size=HALF_WORD,
+		.p_data_size=HALF_WORD,
+		.data_transfer_dir=PER_TO_MEM,
+		.length=1,
+		.per_addr=&ADC1->DR,
+		.mem_addr=&data,
+		.mode=CIRCULAR
+	};
+
+	ADCx_DMA_init(ADC1, GPIOA, 0, 0, &dma_setup,DMA2);
+	ADCx_DMA_chn_config(ADC1, 0, 1);
+	ADCx_DMA_sequence_length(ADC1, 1);
+	ADCx_DMA_start(ADC1);
+
+	UART2_init(115200);
+
 	while (1)
 	{
 		/* USER CODE END WHILE */
-		uint16_t data=0;
-		data=ADCx_read(ADC1);
-		sprintf(buff,"ADC: %d\n\r",data);
+
+		sprintf(buff,"ADC: %d \n\r",data);
 		UART2_write_string(buff);
 		delay_ms(100);
 

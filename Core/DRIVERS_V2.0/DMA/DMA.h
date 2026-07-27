@@ -45,8 +45,8 @@ typedef struct{
 	data_size p_data_size;
 	data_trasnfer_dir data_transfer_dir;
 	uint16_t length;
-	uint32_t *per_addr;
-	uint32_t *mem_addr;
+	volatile uint32_t *per_addr;
+	uint16_t *mem_addr;
 	dma_mode mode;
 }
 dma_config_t;
