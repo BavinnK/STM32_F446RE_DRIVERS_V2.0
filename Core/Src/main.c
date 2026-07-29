@@ -28,6 +28,7 @@
 //#include "ADC.h"
 #include "DMA.h"
 #include "ADC_DMA.h"
+#include "TIM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,15 +106,24 @@ int main(void)
 	ADCx_DMA_sequence_length(ADC1, 1);
 	ADCx_DMA_start(ADC1);
 
+	tim_config_t config_TIM={
+			.TIM_PCS=60000,
+			.TIM_DIR=UP_COUNTER,
+			.TIM_ARR=600
+	};
+
+	TIMx_init(TIM2, &config_TIM);
+	TIMx_start(TIM2);
+
 	UART2_init(115200);
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
-
-		sprintf(buff,"ADC: %d \n\r",data);
+		uint16_t cnt=TIMx_get_counter(TIM2);
+		sprintf(buff,"TIM COUNTER: %d\n\r",cnt);
 		UART2_write_string(buff);
-		delay_ms(100);
+		delay_ms(10);
 
 
 

@@ -1,0 +1,7 @@
+../Core/DRIVERS_V2.0/TIM/TIM.c:3:20:tim_on	9
+../Core/DRIVERS_V2.0/TIM/TIM.c:14:6:TIMx_init	1
+../Core/DRIVERS_V2.0/TIM/TIM.c:24:6:TIMx_stop	1
+../Core/DRIVERS_V2.0/TIM/TIM.c:28:6:TIMx_start	1
+../Core/DRIVERS_V2.0/TIM/TIM.c:32:6:TIMx_counter_reset	1
+../Core/DRIVERS_V2.0/TIM/TIM.c:36:10:TIMx_get_counter	1
+../Core/DRIVERS_V2.0/TIM/TIM.c:40:6:TIMx_set_counter	1

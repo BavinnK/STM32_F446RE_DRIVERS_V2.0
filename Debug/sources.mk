@@ -27,6 +27,7 @@ Core/DRIVERS_V2.0/CLOCK \
 Core/DRIVERS_V2.0/DELAY \
 Core/DRIVERS_V2.0/DMA \
 Core/DRIVERS_V2.0/GPIO \
+Core/DRIVERS_V2.0/TIM \
 Core/DRIVERS_V2.0/UART \
 Core/Src \
 Core/Startup \
