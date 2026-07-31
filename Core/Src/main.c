@@ -29,6 +29,7 @@
 #include "DMA.h"
 #include "ADC_DMA.h"
 #include "TIM.h"
+#include "TIM_OC.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -72,7 +73,7 @@ int main(void)
 	system_clk_180mhz();
 
 	gpio_config_t config={
-		.mode=GPIOx_MODE_OUTPUT,
+		.mode=GPIOx_MODE_ALTERNATE,
 		.otype=GPIOx_OTYPE_PUSH_PULL,
 		.pin=5,
 		.pupdr=GPIOx_PUPDR_DISABLE,
@@ -81,39 +82,31 @@ int main(void)
 
 
 
+
+
 	GPIO_init(GPIOA, &config);
+	GPIOA->AFR[0]&=~(0b1111<<20);
+	GPIOA->AFR[0]|=(1<<20);
+
 
 	systick_init();
 	char buff[100];
-	uint16_t data=0;
-	dma_config_t dma_setup={
-		.stream=DMA2_Stream0,
-		.channel=0,
-		.m_burst=SINGLE,
-		.p_burst=SINGLE,
-		.priority=HIGH,
-		.m_data_size=HALF_WORD,
-		.p_data_size=HALF_WORD,
-		.data_transfer_dir=PER_TO_MEM,
-		.length=1,
-		.per_addr=&ADC1->DR,
-		.mem_addr=&data,
-		.mode=CIRCULAR
+	//uint16_t data=0;
+
+	tim_oc_config_t oc={
+			.arr=50000,
+			.center_align_mode=EDGE_MODE,
+			.dir=UP_COUNTER,
+			.fast_enable=DISABLE_FAST,
+			.pcs=1800,
+			.timer_mode=TOGGLE,
+			.ccrx_val=25000,
+			.polarity=TIM_POLARITY_HIGH
 	};
 
-	ADCx_DMA_init(ADC1, GPIOA, 0, 0, &dma_setup,DMA2);
-	ADCx_DMA_chn_config(ADC1, 0, 1);
-	ADCx_DMA_sequence_length(ADC1, 1);
-	ADCx_DMA_start(ADC1);
-
-	tim_config_t config_TIM={
-			.TIM_PCS=60000,
-			.TIM_DIR=UP_COUNTER,
-			.TIM_ARR=600
-	};
-
-	TIMx_init(TIM2, &config_TIM);
+	TIMx_OC_init(TIM2, 1, &oc);
 	TIMx_start(TIM2);
+
 
 	UART2_init(115200);
 
@@ -123,7 +116,7 @@ int main(void)
 		uint16_t cnt=TIMx_get_counter(TIM2);
 		sprintf(buff,"TIM COUNTER: %d\n\r",cnt);
 		UART2_write_string(buff);
-		delay_ms(10);
+		delay_ms(100);
 
 
 

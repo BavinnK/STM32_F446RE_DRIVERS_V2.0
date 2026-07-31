@@ -13,8 +13,8 @@ typedef enum{
 }center_aligned_modes;
 
 typedef enum{
-	DISABLE=0,
-	ENABLE=1
+	DISABLE_FAST=0,
+	ENABLE_FAST=1
 }fast_en;
 
 typedef enum{
@@ -28,6 +28,11 @@ typedef enum{
 	PWM2
 }tim_modes;
 
+typedef enum{
+    TIM_POLARITY_HIGH=0,
+    TIM_POLARITY_LOW
+}tim_polarity;
+
 typedef struct{
 	uint16_t pcs;
 	uint16_t arr;
@@ -35,7 +40,12 @@ typedef struct{
 	direction dir;
 	fast_en fast_enable;
 	tim_modes timer_mode;
+	uint16_t ccrx_val;
+	tim_polarity polarity;
 
 }tim_oc_config_t;
+
+void TIMx_OC_init(TIM_TypeDef *tim,uint8_t channel,tim_oc_config_t *config);
+
 
 #endif
