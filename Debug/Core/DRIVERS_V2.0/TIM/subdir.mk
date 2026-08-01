@@ -6,14 +6,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/DRIVERS_V2.0/TIM/TIM.c \
+../Core/DRIVERS_V2.0/TIM/TIM_IC.c \
 ../Core/DRIVERS_V2.0/TIM/TIM_OC.c 
 
 OBJS += \
 ./Core/DRIVERS_V2.0/TIM/TIM.o \
+./Core/DRIVERS_V2.0/TIM/TIM_IC.o \
 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o 
 
 C_DEPS += \
 ./Core/DRIVERS_V2.0/TIM/TIM.d \
+./Core/DRIVERS_V2.0/TIM/TIM_IC.d \
 ./Core/DRIVERS_V2.0/TIM/TIM_OC.d 
 
 
@@ -24,7 +27,7 @@ Core/DRIVERS_V2.0/TIM/%.o Core/DRIVERS_V2.0/TIM/%.su Core/DRIVERS_V2.0/TIM/%.cyc
 clean: clean-Core-2f-DRIVERS_V2-2e-0-2f-TIM
 
 clean-Core-2f-DRIVERS_V2-2e-0-2f-TIM:
-	-$(RM) ./Core/DRIVERS_V2.0/TIM/TIM.cyclo ./Core/DRIVERS_V2.0/TIM/TIM.d ./Core/DRIVERS_V2.0/TIM/TIM.o ./Core/DRIVERS_V2.0/TIM/TIM.su ./Core/DRIVERS_V2.0/TIM/TIM_OC.cyclo ./Core/DRIVERS_V2.0/TIM/TIM_OC.d ./Core/DRIVERS_V2.0/TIM/TIM_OC.o ./Core/DRIVERS_V2.0/TIM/TIM_OC.su
+	-$(RM) ./Core/DRIVERS_V2.0/TIM/TIM.cyclo ./Core/DRIVERS_V2.0/TIM/TIM.d ./Core/DRIVERS_V2.0/TIM/TIM.o ./Core/DRIVERS_V2.0/TIM/TIM.su ./Core/DRIVERS_V2.0/TIM/TIM_IC.cyclo ./Core/DRIVERS_V2.0/TIM/TIM_IC.d ./Core/DRIVERS_V2.0/TIM/TIM_IC.o ./Core/DRIVERS_V2.0/TIM/TIM_IC.su ./Core/DRIVERS_V2.0/TIM/TIM_OC.cyclo ./Core/DRIVERS_V2.0/TIM/TIM_OC.d ./Core/DRIVERS_V2.0/TIM/TIM_OC.o ./Core/DRIVERS_V2.0/TIM/TIM_OC.su
 
 .PHONY: clean-Core-2f-DRIVERS_V2-2e-0-2f-TIM
 

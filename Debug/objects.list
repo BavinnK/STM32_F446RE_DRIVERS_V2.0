@@ -5,6 +5,7 @@
 "./Core/DRIVERS_V2.0/DMA/DMA.o"
 "./Core/DRIVERS_V2.0/GPIO/GPIO.o"
 "./Core/DRIVERS_V2.0/TIM/TIM.o"
+"./Core/DRIVERS_V2.0/TIM/TIM_IC.o"
 "./Core/DRIVERS_V2.0/TIM/TIM_OC.o"
 "./Core/DRIVERS_V2.0/UART/UART.o"
 "./Core/Src/main.o"

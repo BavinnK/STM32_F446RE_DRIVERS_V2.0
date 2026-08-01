@@ -85,6 +85,7 @@ int main(void)
 
 
 	GPIO_init(GPIOA, &config);
+
 	GPIOA->AFR[0]&=~(0b1111<<20);
 	GPIOA->AFR[0]|=(1<<20);
 
@@ -94,13 +95,13 @@ int main(void)
 	//uint16_t data=0;
 
 	tim_oc_config_t oc={
-			.arr=50000,
+			.arr=5000,
 			.center_align_mode=EDGE_MODE,
 			.dir=UP_COUNTER,
 			.fast_enable=DISABLE_FAST,
-			.pcs=1800,
-			.timer_mode=TOGGLE,
-			.ccrx_val=25000,
+			.pcs=50,
+			.timer_mode=PWM1,
+			.ccrx_val=2000,
 			.polarity=TIM_POLARITY_HIGH
 	};
 
@@ -113,10 +114,14 @@ int main(void)
 	while (1)
 	{
 		/* USER CODE END WHILE */
-		uint16_t cnt=TIMx_get_counter(TIM2);
-		sprintf(buff,"TIM COUNTER: %d\n\r",cnt);
-		UART2_write_string(buff);
-		delay_ms(100);
+		for(int i=0;i<2001;i++) {
+			TIM2->CCR1=i;
+			delay_ms(1);
+		}
+		for(int i=2001;i>0;i--) {
+			TIM2->CCR1=i;
+			delay_ms(1);
+		}
 
 
 
