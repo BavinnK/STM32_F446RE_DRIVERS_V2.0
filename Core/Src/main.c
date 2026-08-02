@@ -94,18 +94,8 @@ int main(void)
 	char buff[100];
 	//uint16_t data=0;
 
-	tim_oc_config_t oc={
-			.arr=5000,
-			.center_align_mode=EDGE_MODE,
-			.dir=UP_COUNTER,
-			.fast_enable=DISABLE_FAST,
-			.pcs=50,
-			.timer_mode=PWM1,
-			.ccrx_val=2000,
-			.polarity=TIM_POLARITY_HIGH
-	};
 
-	TIMx_OC_init(TIM2, 1, &oc);
+
 	TIMx_start(TIM2);
 
 
@@ -114,16 +104,11 @@ int main(void)
 	while (1)
 	{
 		/* USER CODE END WHILE */
-		for(int i=0;i<2001;i++) {
-			TIM2->CCR1=i;
-			delay_ms(1);
-		}
-		for(int i=2001;i>0;i--) {
-			TIM2->CCR1=i;
-			delay_ms(1);
-		}
+		uint16_t data=TIM2->CCR1;
 
+		sprintf(buff,"%d\n\r",data);
 
+		UART2_write_string(buff);
 
 
 

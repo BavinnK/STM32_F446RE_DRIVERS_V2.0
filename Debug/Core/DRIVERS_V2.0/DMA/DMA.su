@@ -1,3 +1,3 @@
-../Core/DRIVERS_V2.0/DMA/DMA.c:3:20:dma_config	16	static
-../Core/DRIVERS_V2.0/DMA/DMA.c:8:20:clear_flags	16	static
-../Core/DRIVERS_V2.0/DMA/DMA.c:27:6:DMAx_init	16	static
+../Core/DRIVERS_V2.0/DMA/DMA.c:7:20:dma_config	16	static
+../Core/DRIVERS_V2.0/DMA/DMA.c:12:20:clear_flags	16	static
+../Core/DRIVERS_V2.0/DMA/DMA.c:39:6:DMAx_init	16	static
