@@ -1,6 +1,0 @@
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:8:20:adc_on	4
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:14:20:channel_adc	4
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:35:6:ADCx_DMA_init	1
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:51:6:ADCx_DMA_chn_config	7
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:70:6:ADCx_DMA_sequence_length	1
-../Core/DRIVERS_V2.0/ADC/ADC_DMA.c:74:6:ADCx_DMA_start	1

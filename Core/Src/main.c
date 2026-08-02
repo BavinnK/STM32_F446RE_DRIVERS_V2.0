@@ -25,9 +25,9 @@
 #include "GPIO.h"
 #include "DELAY.h"
 #include "UART.h"
-//#include "ADC.h"
+#include "ADC.h"
 #include "DMA.h"
-#include "ADC_DMA.h"
+
 #include "TIM.h"
 #include "TIM_OC.h"
 /* USER CODE END Includes */
@@ -94,34 +94,43 @@ int main(void)
 	char buff[100];
 	//uint16_t data=0;
 
-	tim_oc_config_t oc={
-				.arr=50000,
-				.center_align_mode=EDGE_MODE,
-				.dir=UP_COUNTER,
-				.fast_enable=DISABLE_FAST,
-				.pcs=1800,
-				.timer_mode=ACTIVE_MATCH,
-				.ccrx_val=25000,
-				.polarity=TIM_POLARITY_HIGH
+	uint16_t data=0;
+		dma_config_t dma_setup={
+			.stream=DMA2_Stream0,
+			.channel=0,
+			.m_burst=SINGLE,
+			.p_burst=SINGLE,
+			.priority=HIGH,
+			.m_data_size=HALF_WORD,
+			.p_data_size=HALF_WORD,
+			.data_transfer_dir=PER_TO_MEM,
+			.length=1,
+			.per_addr=&ADC1->DR,
+			.mem_addr=&data,
+			.mode=CIRCULAR
 		};
+		adc_config_t conf={
+				.mode=ADC_DMA
 
-		TIMx_OC_init(TIM2, 1, &oc);
+		};
+		DMAx_init(DMA2, &dma_setup);
 
-	TIMx_start(TIM2);
+		ADCx_init(ADC1, GPIOA, 0, 0, &conf);
 
+		ADCx_chn_config(ADC1, 0, 1);
+		ADCx_sequence_length(ADC1, 1);
+
+		ADCx_start(ADC1);
 
 	UART2_init(115200);
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
-		uint16_t data=TIM2->CCR1;
 
-		sprintf(buff,"%d\n\r",data);
-
+		sprintf(buff,"ADC: %d\n\r",data);
 		UART2_write_string(buff);
-
-
+		delay_ms(100);
 
 		/* USER CODE BEGIN 3 */
 	}

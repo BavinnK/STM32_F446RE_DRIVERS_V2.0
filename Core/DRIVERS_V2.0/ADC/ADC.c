@@ -36,11 +36,11 @@ void ADCx_init(ADC_TypeDef *adc, GPIO_TypeDef *port, uint8_t pin, uint8_t adc_ch
 	GPIO_init(port, &gpio_setup);
 	adc_on(adc);
 
-	if(config->mode==ADC_DMA){
+	if(config->mode == ADC_DMA){
 		adc->CR2|=(1<<8)|(1<<9)|(1<<1);				//EN ADC
 		adc->CR2|=(1<<0)|(1<<30);
 	}
-	else if(config->mode==ADC_INTERRUPT){
+	else if(config->mode == ADC_INTERRUPT){
 
 	}
 	channel_adc(adc, adc_channel);
@@ -66,7 +66,7 @@ void ADCx_chn_config(ADC_TypeDef *adc,uint8_t channel,uint8_t rank){
 	}
 }
 
-uint16_t ADCx_read(ADC_TypeDef *adc){
+uint16_t ADCx_read(ADC_TypeDef *adc){ //used when user picked POLLING
 	adc->CR2&=~(1<<30);
 	adc->CR2|=(1<<30);
 	while(!(adc->SR&(1<<1)));
