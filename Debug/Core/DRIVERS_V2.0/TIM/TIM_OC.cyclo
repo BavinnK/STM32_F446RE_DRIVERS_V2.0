@@ -1,3 +1,4 @@
-../Core/DRIVERS_V2.0/TIM/TIM_OC.c:4:20:pick_ccmr_shift	9
-../Core/DRIVERS_V2.0/TIM/TIM_OC.c:20:20:ccr	5
-../Core/DRIVERS_V2.0/TIM/TIM_OC.c:41:6:TIMx_OC_init	1
+../Core/DRIVERS_V2.0/TIM/TIM_OC.c:4:34:pick_ccmr	5
+../Core/DRIVERS_V2.0/TIM/TIM_OC.c:10:23:ccmr_shift	5
+../Core/DRIVERS_V2.0/TIM/TIM_OC.c:24:23:ccer_shift	5
+../Core/DRIVERS_V2.0/TIM/TIM_OC.c:34:6:TIMx_OC_init	1

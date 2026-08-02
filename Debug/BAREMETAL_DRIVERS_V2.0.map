@@ -446,20 +446,20 @@ Discarded input sections
  .text          0x00000000        0x0 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .data          0x00000000        0x0 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .bss.CCMRx     0x00000000        0x4 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .bss.shift     0x00000000        0x1 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .bss.shift_en  0x00000000        0x1 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .text.pick_ccmr_shift
-                0x00000000       0x70 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .text.ccr      0x00000000       0x70 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .text.pick_ccmr
+                0x00000000       0x3e ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .text.ccmr_shift
+                0x00000000       0x38 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .text.ccer_shift
+                0x00000000       0x40 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .text.TIMx_OC_init
-                0x00000000       0xe4 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .debug_info    0x00000000      0x48a ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .debug_abbrev  0x00000000      0x17f ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+                0x00000000       0xd4 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .debug_info    0x00000000      0x492 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .debug_abbrev  0x00000000      0x185 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_aranges
-                0x00000000       0x30 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+                0x00000000       0x38 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_rnglists
-                0x00000000       0x20 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+                0x00000000       0x26 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_macro   0x00000000       0xd3 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
@@ -475,10 +475,10 @@ Discarded input sections
  .debug_macro   0x00000000     0x1011 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_macro   0x00000000      0x11f ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .debug_macro   0x00000000    0x16749 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .debug_line    0x00000000      0x6be ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .debug_str     0x00000000    0x8abf7 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .debug_line    0x00000000      0x6ec ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .debug_str     0x00000000    0x8ac0e ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
- .debug_frame   0x00000000       0x84 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
+ .debug_frame   0x00000000       0xac ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .ARM.attributes
                 0x00000000       0x34 ./Core/DRIVERS_V2.0/TIM/TIM_OC.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/UART/UART.o
