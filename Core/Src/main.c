@@ -94,7 +94,18 @@ int main(void)
 	char buff[100];
 	//uint16_t data=0;
 
+	tim_oc_config_t oc={
+				.arr=50000,
+				.center_align_mode=EDGE_MODE,
+				.dir=UP_COUNTER,
+				.fast_enable=DISABLE_FAST,
+				.pcs=1800,
+				.timer_mode=ACTIVE_MATCH,
+				.ccrx_val=25000,
+				.polarity=TIM_POLARITY_HIGH
+		};
 
+		TIMx_OC_init(TIM2, 1, &oc);
 
 	TIMx_start(TIM2);
 

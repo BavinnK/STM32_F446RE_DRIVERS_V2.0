@@ -1,5 +1,9 @@
 #include "ADC.h"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// INLINE FUNCTION
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 static inline void adc_on(ADC_TypeDef *adc){
 	if(adc==ADC1) RCC->APB2ENR|=(1<<8);
 	else if(adc==ADC2) RCC->APB2ENR|=(1<<9);
@@ -18,7 +22,11 @@ static inline void channel_adc(ADC_TypeDef *adc_port,uint8_t chn){
 	}
 }
 
-void ADCx_init(ADC_TypeDef *adc,GPIO_TypeDef *port,uint8_t pin,uint8_t channel){
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// END INLINE FUNCTION
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void ADCx_init(ADC_TypeDef *adc, GPIO_TypeDef *port, uint8_t pin, uint8_t adc_channel, adc_config_t *config){
 	gpio_config_t gpio_setup={
 		.pin=pin,
 		.mode=GPIOx_MODE_ANALOG,
@@ -28,9 +36,14 @@ void ADCx_init(ADC_TypeDef *adc,GPIO_TypeDef *port,uint8_t pin,uint8_t channel){
 	GPIO_init(port, &gpio_setup);
 	adc_on(adc);
 
+	if(config->mode==ADC_DMA){
+		adc->CR2|=(1<<8)|(1<<9)|(1<<1);				//EN ADC
+		adc->CR2|=(1<<0)|(1<<30);
+	}
+	else if(config->mode==ADC_INTERRUPT){
 
-
-	channel_adc(adc, channel);
+	}
+	channel_adc(adc, adc_channel);
 	adc->CR2|=(1<<0);				//EN ADC
 }
 
@@ -65,4 +78,8 @@ void ADCx_sequence_length(ADC_TypeDef *adc,uint8_t len){
 	adc->SQR1|=((len-1)<<20);
 }
 
+
+void ADCx_start(ADC_TypeDef *adc){
+	adc->CR2|=(1<<0)|(1<<30);
+}
 
