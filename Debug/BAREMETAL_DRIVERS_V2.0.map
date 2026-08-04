@@ -194,18 +194,53 @@ Discarded input sections
  .ARM.attributes
                 0x00000000       0x34 ./Core/DRIVERS_V2.0/DMA/DMA.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .text          0x00000000        0x0 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .data          0x00000000        0x0 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
- .debug_info    0x00000000       0x22 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
- .debug_abbrev  0x00000000       0x12 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .text.port_shift
+                0x00000000       0x58 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .text.exti_edge_setup
+                0x00000000       0xb4 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .text.EXTIx_init
+                0x00000000       0xb8 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_info    0x00000000      0x4e7 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_abbrev  0x00000000      0x188 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .debug_aranges
-                0x00000000       0x18 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
- .debug_macro   0x00000000       0x11 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+                0x00000000       0x30 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_rnglists
+                0x00000000       0x21 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
- .debug_line    0x00000000       0x41 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
- .debug_str     0x00000000     0x2e85 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x8e ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x51 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000      0x103 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x6a ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000      0x1df ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x28 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x1c ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000       0xfb ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000     0x1011 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000      0x11f ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_macro   0x00000000    0x16749 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_line    0x00000000      0x6f2 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_str     0x00000000    0x8ac03 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
+ .debug_frame   0x00000000       0x84 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .ARM.attributes
                 0x00000000       0x34 ./Core/DRIVERS_V2.0/EXTI/EXTI.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/GPIO/GPIO.o
