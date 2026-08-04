@@ -32,9 +32,7 @@ typedef enum{
 
 typedef struct{
 	adc_res_t resolution;
-
 	uint8_t sample;
-
 	adc_mode_t mode;
 }adc_config_t;
 
@@ -52,8 +50,7 @@ void ADCx_chn_config(ADC_TypeDef *adc,uint8_t channel,uint8_t rank);
 uint16_t ADCx_read(ADC_TypeDef *adc);
 void ADCx_sequence_length(ADC_TypeDef *adc,uint8_t len);
 void ADCx_start(ADC_TypeDef *adc);
-
-
+void ADCx_register_callbacks(ADC_TypeDef *adc, void (*callback)(uint16_t));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION PROTOTYPES

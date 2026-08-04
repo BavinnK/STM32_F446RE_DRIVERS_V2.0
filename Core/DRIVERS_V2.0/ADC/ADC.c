@@ -1,7 +1,6 @@
 #include "ADC.h"
 #include <stddef.h>
 
-const static ADC_TypeDef *adc_int;
 
 static void (*ADC1_callback) (uint16_t)=NULL;
 static void (*ADC2_callback) (uint16_t)=NULL;
@@ -32,6 +31,12 @@ static inline void channel_adc(ADC_TypeDef *adc_port,uint8_t chn,uint8_t sample)
 // END INLINE FUNCTION
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 void ADCx_init(ADC_TypeDef *adc, GPIO_TypeDef *port, uint8_t pin, uint8_t adc_channel, adc_config_t *config){
 	gpio_config_t gpio_setup={
 		.pin=pin,
@@ -51,8 +56,8 @@ void ADCx_init(ADC_TypeDef *adc, GPIO_TypeDef *port, uint8_t pin, uint8_t adc_ch
 	}
 	else if(config->mode == ADC_INTERRUPT){
 		adc->CR1|=(1<<5);
+		adc->CR2|=(1<<1);
 		NVIC_EnableIRQ(ADC_IRQn);
-		adc_int=adc;
 	}
 
 	channel_adc(adc, adc_channel, config->sample);
@@ -95,6 +100,21 @@ void ADCx_start(ADC_TypeDef *adc){
 	adc->CR2|=(1<<0)|(1<<30);
 }
 
+void ADCx_register_callbacks(ADC_TypeDef *adc, void (*callback)(uint16_t)){
+	if(adc==ADC1) 		ADC1_callback=callback;
+	else if(adc==ADC2) 	ADC2_callback=callback;
+	else if(adc==ADC3) 	ADC3_callback=callback;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// END  FUNCTIONS
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//  INTERRUPT FUNCTION
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 void ADC_IRQHandler(void){
 	if(ADC1->SR & (1<<1)){
@@ -111,6 +131,5 @@ void ADC_IRQHandler(void){
 		uint16_t adc3_val=ADC3->DR;
 		if(ADC3_callback != NULL) ADC3_callback(adc3_val);
 	}
-
 }
 

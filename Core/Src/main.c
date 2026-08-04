@@ -68,69 +68,57 @@
   * @brief  The application entry point.
   * @retval int
   */
+
+
+void adc_idk(uint16_t val){//char buff[100];
+	GPIO_set_level(GPIOA, 5, 0);
+}
 int main(void)
 {
 	system_clk_180mhz();
 
 	gpio_config_t config={
-		.mode=GPIOx_MODE_ALTERNATE,
+		.mode=GPIOx_MODE_OUTPUT,
 		.otype=GPIOx_OTYPE_PUSH_PULL,
 		.pin=5,
 		.pupdr=GPIOx_PUPDR_DISABLE,
 		.speed=GPIOx_SPEED_MED_SPEED
 	};
 
-
-
-
-
 	GPIO_init(GPIOA, &config);
-
-	GPIOA->AFR[0]&=~(0b1111<<20);
-	GPIOA->AFR[0]|=(1<<20);
 
 
 	systick_init();
-	char buff[100];
+
 	//uint16_t data=0;
 
-	uint16_t data=0;
-		dma_config_t dma_setup={
-			.stream=DMA2_Stream0,
-			.channel=0,
-			.m_burst=SINGLE,
-			.p_burst=SINGLE,
-			.priority=HIGH,
-			.m_data_size=HALF_WORD,
-			.p_data_size=HALF_WORD,
-			.data_transfer_dir=PER_TO_MEM,
-			.length=1,
-			.per_addr=&ADC1->DR,
-			.mem_addr=&data,
-			.mode=CIRCULAR
-		};
+
 		adc_config_t conf={
-				.mode=ADC_DMA
+				.mode=ADC_INTERRUPT,
+				.sample=0b110,
+				.resolution=BIT_12
 
 		};
-		DMAx_init(DMA2, &dma_setup);
-
+		//DMAx_init(DMA2, &dma_setup);
+		UART2_init(115200);
 		ADCx_init(ADC1, GPIOA, 0, 0, &conf);
 
 		ADCx_chn_config(ADC1, 0, 1);
 		ADCx_sequence_length(ADC1, 1);
-
+		ADCx_register_callbacks(ADC1, adc_idk);
 		ADCx_start(ADC1);
 
-	UART2_init(115200);
+
+
+
+
 
 	while (1)
 	{
 		/* USER CODE END WHILE */
+		//int i=1+1;
+		delay_ms(200);
 
-		sprintf(buff,"ADC: %d\n\r",data);
-		UART2_write_string(buff);
-		delay_ms(100);
 
 		/* USER CODE BEGIN 3 */
 	}
