@@ -17,4 +17,8 @@ typedef struct{
 
 }exti_config_t;
 
+void EXTIx_register_callbacks(void (*callback)(void), uint8_t pin);
+void EXTIx_init(exti_config_t *config);
+
+
 #endif
