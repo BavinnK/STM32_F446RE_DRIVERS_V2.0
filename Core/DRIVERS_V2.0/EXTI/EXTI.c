@@ -6,8 +6,17 @@ static void (*exti_callback_1)(void)=NULL;
 static void (*exti_callback_2)(void)=NULL;
 static void (*exti_callback_3)(void)=NULL;
 static void (*exti_callback_4)(void)=NULL;
-static void (*exti_callback_5_9)(void)=NULL;
-static void (*exti_callback_10_15)(void)=NULL;
+static void (*exti_callback_5)(void)=NULL;
+static void (*exti_callback_6)(void)=NULL;
+static void (*exti_callback_7)(void)=NULL;
+static void (*exti_callback_8)(void)=NULL;
+static void (*exti_callback_9)(void)=NULL;
+static void (*exti_callback_10)(void)=NULL;
+static void (*exti_callback_11)(void)=NULL;
+static void (*exti_callback_12)(void)=NULL;
+static void (*exti_callback_13)(void)=NULL;
+static void (*exti_callback_14)(void)=NULL;
+static void (*exti_callback_15)(void)=NULL;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // INLINE FUNCTIONS
@@ -86,17 +95,17 @@ void EXTIx_register_callbacks(void (*callback)(void), uint8_t pin){
 	else if(pin==2) 	exti_callback_2=callback;
 	else if(pin==3) 	exti_callback_3=callback;
 	else if(pin==4) 	exti_callback_4=callback;
-	else if(pin==5) 	exti_callback_5_9=callback;
-	else if(pin==6) 	exti_callback_5_9=callback;
-	else if(pin==7) 	exti_callback_5_9=callback;
-	else if(pin==8) 	exti_callback_5_9=callback;
-	else if(pin==9) 	exti_callback_5_9=callback;
-	else if(pin==10) 	exti_callback_10_15=callback;
-	else if(pin==11) 	exti_callback_10_15=callback;
-	else if(pin==12) 	exti_callback_10_15=callback;
-	else if(pin==13) 	exti_callback_10_15=callback;
-	else if(pin==14) 	exti_callback_10_15=callback;
-	else if(pin==15) 	exti_callback_10_15=callback;
+	else if(pin==5) 	exti_callback_5=callback;
+	else if(pin==6) 	exti_callback_6=callback;
+	else if(pin==7) 	exti_callback_7=callback;
+	else if(pin==8) 	exti_callback_8=callback;
+	else if(pin==9) 	exti_callback_9=callback;
+	else if(pin==10) 	exti_callback_10=callback;
+	else if(pin==11) 	exti_callback_11=callback;
+	else if(pin==12) 	exti_callback_12=callback;
+	else if(pin==13) 	exti_callback_13=callback;
+	else if(pin==14) 	exti_callback_14=callback;
+	else if(pin==15) 	exti_callback_15=callback;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,28 +118,71 @@ void EXTIx_register_callbacks(void (*callback)(void), uint8_t pin){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void EXTI0_IRQHandler(void){
+	if(EXTI->PR&(1<<0)){
+		EXTI->PR=(1<<0);
 
+		if(exti_callback_0 != NULL){
+			exti_callback_0();
+		}
+	}
 }
 
 void EXTI1_IRQHandler(void){
+	if(EXTI->PR&(1<<1)){
+		EXTI->PR=(1<<1);
 
+		if(exti_callback_1 != NULL){
+			exti_callback_1();
+		}
+	}
 }
+
+
 
 void EXTI2_IRQHandler(void){
+	if(EXTI->PR&(1<<2)){
+		EXTI->PR=(1<<2);
 
+		if(exti_callback_2 != NULL){
+			exti_callback_2();
+		}
+	}
 }
+
 
 void EXTI3_IRQHandler(void){
+	if(EXTI->PR&(1<<3)){
+		EXTI->PR=(1<<3);
 
+		if(exti_callback_3 != NULL){
+			exti_callback_3();
+		}
+	}
 }
+
 
 void EXTI4_IRQHandler(void){
+	if(EXTI->PR&(1<<4)){
+		EXTI->PR=(1<<4);
 
+		if(exti_callback_4 != NULL){
+			exti_callback_4();
+		}
+	}
 }
+
 
 void EXTI9_5_IRQHandler(void){
+	if(EXTI->PR&(1<<5)){
+		EXTI->PR=(1<<5);
 
+		if(exti_callback_5 != NULL){
+			exti_callback_5();
+		}
+	}
 }
+
+
 
 void EXTI15_10_IRQHandler(void){
 
