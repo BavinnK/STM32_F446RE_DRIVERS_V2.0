@@ -10,4 +10,4 @@
 ../Core/DRIVERS_V2.0/EXTI/EXTI.c:153:6:EXTI3_IRQHandler	8	static
 ../Core/DRIVERS_V2.0/EXTI/EXTI.c:164:6:EXTI4_IRQHandler	8	static
 ../Core/DRIVERS_V2.0/EXTI/EXTI.c:175:6:EXTI9_5_IRQHandler	8	static
-../Core/DRIVERS_V2.0/EXTI/EXTI.c:187:6:EXTI15_10_IRQHandler	4	static
+../Core/DRIVERS_V2.0/EXTI/EXTI.c:220:6:EXTI15_10_IRQHandler	8	static
