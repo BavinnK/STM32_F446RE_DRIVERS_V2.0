@@ -30,6 +30,7 @@
 
 #include "TIM.h"
 #include "TIM_OC.h"
+#include "EXTI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,9 +70,11 @@
   * @retval int
   */
 
+uint8_t toggle=1;
+void exti_idk(void){//char buff[100];
+	toggle^=1;
+	GPIO_set_level(GPIOA, 5,toggle);
 
-void adc_idk(uint16_t val){//char buff[100];
-	GPIO_set_level(GPIOA, 5, 0);
 }
 int main(void)
 {
@@ -90,25 +93,15 @@ int main(void)
 
 	systick_init();
 
-	//uint16_t data=0;
+	exti_config_t exti_config={
+			.pin=13,
+			.port=GPIOC,
+			.edge=EXTI_FALLING
+	};
 
+	EXTIx_init(&exti_config);
 
-		adc_config_t conf={
-				.mode=ADC_INTERRUPT,
-				.sample=0b110,
-				.resolution=BIT_12
-
-		};
-		//DMAx_init(DMA2, &dma_setup);
-		UART2_init(115200);
-		ADCx_init(ADC1, GPIOA, 0, 0, &conf);
-
-		ADCx_chn_config(ADC1, 0, 1);
-		ADCx_sequence_length(ADC1, 1);
-		ADCx_register_callbacks(ADC1, adc_idk);
-		ADCx_start(ADC1);
-
-
+	EXTIx_register_callbacks(exti_idk, 13);
 
 
 
