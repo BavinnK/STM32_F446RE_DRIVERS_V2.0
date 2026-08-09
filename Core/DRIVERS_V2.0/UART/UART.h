@@ -12,6 +12,7 @@
 void UART2_init(uint32_t baudrate);
 void UART2_write_byte(char byte);
 void UART2_write_string(char *ptr);
+void UART2_register_callback(void (*callback)(uint8_t));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION PROTOTYPES

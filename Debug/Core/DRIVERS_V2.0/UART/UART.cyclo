@@ -1,6 +1,7 @@
 ../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
-../Core/DRIVERS_V2.0/UART/UART.c:9:24:set_baud	9
-../Core/DRIVERS_V2.0/UART/UART.c:38:6:UART2_init	1
-../Core/DRIVERS_V2.0/UART/UART.c:75:6:UART2_write_byte	2
-../Core/DRIVERS_V2.0/UART/UART.c:82:6:UART2_write_string	2
-../Core/DRIVERS_V2.0/UART/UART.c:88:6:USART2_IRQHandler	2
+../Core/DRIVERS_V2.0/UART/UART.c:10:24:set_baud	9
+../Core/DRIVERS_V2.0/UART/UART.c:39:6:UART2_init	1
+../Core/DRIVERS_V2.0/UART/UART.c:76:6:UART2_write_byte	2
+../Core/DRIVERS_V2.0/UART/UART.c:83:6:UART2_write_string	2
+../Core/DRIVERS_V2.0/UART/UART.c:89:6:UART2_register_callback	1
+../Core/DRIVERS_V2.0/UART/UART.c:93:6:USART2_IRQHandler	3

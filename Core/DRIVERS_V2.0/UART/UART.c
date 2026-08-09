@@ -1,7 +1,8 @@
 #include "UART.h"
+#include <stddef.h>
 
 volatile uint8_t data=0,busy_flag=0;
-
+static void (*uart_callback)(uint8_t)=NULL;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // INLINE FUNCTION
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,11 +86,18 @@ void UART2_write_string(char *ptr){
 	}
 }
 
+void UART2_register_callback(void (*callback)(uint8_t)){
+	uart_callback=callback;
+}
+
 void USART2_IRQHandler(void){
 	if(USART2->SR&(1<<7)){
+
 		USART2->DR=(char)data;
 		USART2->CR1&=~(1<<7);
 		busy_flag=0;
+
+		if(uart_callback!=NULL) uart_callback(data);
 	}
 }
 
