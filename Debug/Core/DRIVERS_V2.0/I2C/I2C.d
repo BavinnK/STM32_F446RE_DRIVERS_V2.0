@@ -1,0 +1,1 @@
+Core/DRIVERS_V2.0/I2C/I2C.o: ../Core/DRIVERS_V2.0/I2C/I2C.c
