@@ -1,1 +1,2 @@
-../Core/DRIVERS_V2.0/I2C/I2C.c:3:6:I2Cx_init	1
+../Core/DRIVERS_V2.0/I2C/I2C.c:3:13:i2c_pin_clk_config	4
+../Core/DRIVERS_V2.0/I2C/I2C.c:85:6:I2Cx_init	1

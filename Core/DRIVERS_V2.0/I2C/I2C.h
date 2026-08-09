@@ -3,7 +3,7 @@
 
 #include "stdint.h"
 #include "stm32f446xx.h"
-
+#include "GPIO.h"
 typedef enum{
 	I2C_POLLING=0,
 	I2C_INTERRUPT,
