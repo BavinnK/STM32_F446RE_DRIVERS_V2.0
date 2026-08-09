@@ -7,14 +7,14 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 		gpio_config_t i2c1_sda_PB7_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=7
 		};
 		gpio_config_t i2c1_scl_PB8_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=8
 		};
@@ -33,14 +33,14 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 		gpio_config_t i2c2_sda_PC12_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=12
 		};
 		gpio_config_t i2c2_scl_PB10_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=10
 		};
@@ -59,14 +59,14 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 		gpio_config_t i2c3_sda_PC9_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=9
 		};
 		gpio_config_t i2c3_scl_PA8_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_DISABLE,
+			.pupdr=GPIOx_PUPDR_PULLUP,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=8
 		};
@@ -84,5 +84,29 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 
 void I2Cx_init(I2C_TypeDef *i2c, i2c_config_t *config){
 	i2c_pin_clk_config(i2c);
+
+	i2c->CR1&=~(1<<0);
+
+	if(config->mode==I2C_INTERRUPT){
+
+	}
+	else if(config->mode==I2C_DMA){
+
+	}
+	i2c->CR2&=~(0b111111<<0);
+	i2c->CR2|=45;
+
+	i2c->CR1|=(1<<0);
+}
+
+void I2Cx_start(I2C_TypeDef *i2c){
+	i2c->CR1|=(1<<8);
+}
+
+void I2Cx_stop(I2C_TypeDef *i2c){
+	i2c->CR1|=(1<<9);
+}
+
+void I2Cx_write(I2C_TypeDef* i2c,uint8_t data, uint16_t slave_addr){
 
 }
