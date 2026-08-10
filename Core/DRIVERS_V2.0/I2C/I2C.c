@@ -1,4 +1,6 @@
 #include "I2C.h"
+#define I2C_WRITE 0
+#define I2C_READ  1
 
 static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 	if(i2c==I2C1){
@@ -101,12 +103,26 @@ void I2Cx_init(I2C_TypeDef *i2c, i2c_config_t *config){
 
 void I2Cx_start(I2C_TypeDef *i2c){
 	i2c->CR1|=(1<<8);
+	while(!(i2c->SR1&(1<<0)));
 }
 
 void I2Cx_stop(I2C_TypeDef *i2c){
 	i2c->CR1|=(1<<9);
 }
 
-void I2Cx_write(I2C_TypeDef* i2c,uint8_t data, uint16_t slave_addr){
+void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint16_t length){
+	I2Cx_start(i2c);
+	i2c->DR=(slave_addr<<1)|I2C_WRITE;
+	while(!(i2c->SR1&(1<<1)));
 
+	i2c->DR=register_addr;
+	while(!(i2c->SR1&(1<<7)));
+
+	for(uint16_t i=1;i<=length;i++){
+		i2c->DR=*buffer;
+		buffer++;
+		while(!(i2c->SR1&(1<<7)));
+	}
+
+	I2Cx_stop(i2c);
 }

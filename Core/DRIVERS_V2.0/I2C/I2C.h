@@ -17,7 +17,7 @@ typedef struct{
 
 void I2Cx_init(I2C_TypeDef *i2c, i2c_config_t *config);
 void I2Cx_start(I2C_TypeDef *i2c);
-void I2Cx_write(I2C_TypeDef* i2c,uint8_t data, uint16_t slave_addr);
+void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint16_t length);
 void I2Cx_read();
 void I2Cx_stop(I2C_TypeDef *i2c);
 
