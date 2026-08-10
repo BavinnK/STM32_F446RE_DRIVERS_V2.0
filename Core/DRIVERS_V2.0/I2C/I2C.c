@@ -114,6 +114,8 @@ void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint
 	I2Cx_start(i2c);
 	i2c->DR=(slave_addr<<1)|I2C_WRITE;
 	while(!(i2c->SR1&(1<<1)));
+	(void)i2c->SR1;
+	(void)i2c->SR2;
 
 	i2c->DR=register_addr;
 	while(!(i2c->SR1&(1<<7)));
@@ -125,4 +127,52 @@ void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint
 	}
 
 	I2Cx_stop(i2c);
+}
+
+void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint8_t length){
+	I2Cx_start(i2c);
+	while(!(i2c->CR1&(1<<0)));
+	i2c->DR=(slave_addr<<1)|I2C_WRITE;
+	while(!(i2c->SR1&(1<<1)));
+	(void)i2c->SR1;
+	(void)i2c->SR2;
+
+	i2c->DR=register_addr;
+	while(!(i2c->SR1&(1<<7)));
+
+	I2Cx_start(i2c);
+	while(!(i2c->CR1&(1<<0)));
+	i2c->DR=(slave_addr<<1)|I2C_READ;
+	while(!(i2c->SR1&(1<<1)));
+
+	if(length==1){
+		i2c->CR1&=~(1<<10);
+		(void)i2c->SR1; (void)i2c->SR2;
+		I2Cx_stop(i2c);
+		while(!(i2c->SR1&(1<<6)));
+		buffer[0]=i2c->DR;
+	}
+	else if(length==2){
+		i2c->CR1|=(1<<11); i2c->CR1&=~(1<<10);
+		(void)i2c->SR1; (void)i2c->SR2;
+		while(!(i2c->SR1&(1<<2)));
+		I2Cx_stop(i2c);
+		buffer[0]=i2c->DR;
+		buffer[1]=i2c->DR;
+	}
+	else if(length>=3){
+		(void)i2c->SR1; (void)i2c->SR2;
+		uint16_t i=0;
+		length--;
+		for(i=0;i<length;i++){
+			i2c->CR1|=(1<<10);
+			while(!(i2c->SR1&(1<<6)));
+			buffer[i]=i2c->DR;
+		}
+
+		i2c->CR1&=~(1<<10);
+		while(!(i2c->SR1&(1<<6)));
+		buffer[i]=i2c->DR;
+		I2Cx_stop(i2c);
+	}
 }

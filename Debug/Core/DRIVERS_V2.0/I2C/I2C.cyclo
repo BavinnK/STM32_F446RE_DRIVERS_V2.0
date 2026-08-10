@@ -3,3 +3,4 @@
 ../Core/DRIVERS_V2.0/I2C/I2C.c:104:6:I2Cx_start	2
 ../Core/DRIVERS_V2.0/I2C/I2C.c:109:6:I2Cx_stop	1
 ../Core/DRIVERS_V2.0/I2C/I2C.c:113:6:I2Cx_write	5
+../Core/DRIVERS_V2.0/I2C/I2C.c:132:6:I2Cx_read	14
