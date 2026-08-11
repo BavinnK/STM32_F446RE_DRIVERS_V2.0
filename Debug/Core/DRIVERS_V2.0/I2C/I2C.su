@@ -1,6 +1,0 @@
-../Core/DRIVERS_V2.0/I2C/I2C.c:5:13:i2c_pin_clk_config	64	static
-../Core/DRIVERS_V2.0/I2C/I2C.c:87:6:I2Cx_init	16	static
-../Core/DRIVERS_V2.0/I2C/I2C.c:104:6:I2Cx_start	16	static
-../Core/DRIVERS_V2.0/I2C/I2C.c:109:6:I2Cx_stop	16	static
-../Core/DRIVERS_V2.0/I2C/I2C.c:113:6:I2Cx_write	32	static
-../Core/DRIVERS_V2.0/I2C/I2C.c:132:6:I2Cx_read	32	static

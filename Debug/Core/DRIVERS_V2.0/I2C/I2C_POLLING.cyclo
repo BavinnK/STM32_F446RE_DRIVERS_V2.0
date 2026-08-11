@@ -1,0 +1,6 @@
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:5:13:i2c_pin_clk_config	4
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:87:6:I2Cx_Polling_init	1
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:101:6:I2Cx_Polling_start	2
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:106:6:I2Cx_Polling_stop	1
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:110:6:I2Cx_Polling_write	5
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:129:6:I2Cx_Polling_read	14

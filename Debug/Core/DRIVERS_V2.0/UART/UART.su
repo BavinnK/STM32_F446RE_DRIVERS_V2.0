@@ -4,4 +4,4 @@
 ../Core/DRIVERS_V2.0/UART/UART.c:76:6:UART2_write_byte	16	static
 ../Core/DRIVERS_V2.0/UART/UART.c:83:6:UART2_write_string	16	static
 ../Core/DRIVERS_V2.0/UART/UART.c:89:6:UART2_register_callback	16	static
-../Core/DRIVERS_V2.0/UART/UART.c:93:6:USART2_IRQHandler	8	static
+../Core/DRIVERS_V2.0/UART/UART.c:93:6:USART2_IRQHandler	4	static

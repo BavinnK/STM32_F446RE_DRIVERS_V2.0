@@ -97,7 +97,7 @@ void USART2_IRQHandler(void){
 		USART2->CR1&=~(1<<7);
 		busy_flag=0;
 
-		if(uart_callback!=NULL) uart_callback(data);
+		//if(uart_callback!=NULL) uart_callback(data);
 	}
 }
 

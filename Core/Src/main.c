@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <I2C_POLLING.h>
 #include "main.h"
 #include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
@@ -80,36 +81,21 @@ int main(void)
 {
 	system_clk_180mhz();
 
-	gpio_config_t config={
-		.mode=GPIOx_MODE_OUTPUT,
-		.otype=GPIOx_OTYPE_PUSH_PULL,
-		.pin=5,
-		.pupdr=GPIOx_PUPDR_DISABLE,
-		.speed=GPIOx_SPEED_MED_SPEED
-	};
-
-	GPIO_init(GPIOA, &config);
-
+	UART2_init(115200);
 
 	systick_init();
 
-	exti_config_t exti_config={
-			.pin=13,
-			.port=GPIOC,
-			.edge=EXTI_FALLING
-	};
-
-	EXTIx_init(&exti_config);
-
-	EXTIx_register_callbacks(exti_idk, 13);
 
 
 
+	char buff[100];
 
 	while (1)
 	{
-		/* USER CODE END WHILE */
-		//int i=1+1;
+		uint8_t dat=0;
+
+		sprintf(buff,"WHO_AM_I:%d\n\r",dat);
+		UART2_write_string(buff);
 		delay_ms(200);
 
 

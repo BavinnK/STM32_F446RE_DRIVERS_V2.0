@@ -4,4 +4,4 @@
 ../Core/DRIVERS_V2.0/UART/UART.c:76:6:UART2_write_byte	2
 ../Core/DRIVERS_V2.0/UART/UART.c:83:6:UART2_write_string	2
 ../Core/DRIVERS_V2.0/UART/UART.c:89:6:UART2_register_callback	1
-../Core/DRIVERS_V2.0/UART/UART.c:93:6:USART2_IRQHandler	3
+../Core/DRIVERS_V2.0/UART/UART.c:93:6:USART2_IRQHandler	2

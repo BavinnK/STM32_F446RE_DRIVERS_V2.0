@@ -1,4 +1,4 @@
-#include "I2C.h"
+#include <I2C_POLLING.h>
 #define I2C_WRITE 0
 #define I2C_READ  1
 
@@ -84,34 +84,31 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 
 }
 
-void I2Cx_init(I2C_TypeDef *i2c, i2c_config_t *config){
+void I2Cx_Polling_init(I2C_TypeDef *i2c, i2c_config_t *config){
 	i2c_pin_clk_config(i2c);
 
 	i2c->CR1&=~(1<<0);
 
-	if(config->mode==I2C_INTERRUPT){
 
-	}
-	else if(config->mode==I2C_DMA){
-
-	}
 	i2c->CR2&=~(0b111111<<0);
 	i2c->CR2|=45;
+	i2c->CCR =225;            // 100 kHz
+	i2c->TRISE= 46;
 
 	i2c->CR1|=(1<<0);
 }
 
-void I2Cx_start(I2C_TypeDef *i2c){
+void I2Cx_Polling_start(I2C_TypeDef *i2c){
 	i2c->CR1|=(1<<8);
 	while(!(i2c->SR1&(1<<0)));
 }
 
-void I2Cx_stop(I2C_TypeDef *i2c){
+void I2Cx_Polling_stop(I2C_TypeDef *i2c){
 	i2c->CR1|=(1<<9);
 }
 
-void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint16_t length){
-	I2Cx_start(i2c);
+void I2Cx_Polling_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint16_t length){
+	I2Cx_Polling_start(i2c);
 	i2c->DR=(slave_addr<<1)|I2C_WRITE;
 	while(!(i2c->SR1&(1<<1)));
 	(void)i2c->SR1;
@@ -126,11 +123,11 @@ void I2Cx_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint
 		while(!(i2c->SR1&(1<<7)));
 	}
 
-	I2Cx_stop(i2c);
+	I2Cx_Polling_stop(i2c);
 }
 
-void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint8_t length){
-	I2Cx_start(i2c);
+void I2Cx_Polling_read(I2C_TypeDef *i2c,uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
+	I2Cx_Polling_start(i2c);
 	while(!(i2c->CR1&(1<<0)));
 	i2c->DR=(slave_addr<<1)|I2C_WRITE;
 	while(!(i2c->SR1&(1<<1)));
@@ -140,7 +137,7 @@ void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8
 	i2c->DR=register_addr;
 	while(!(i2c->SR1&(1<<7)));
 
-	I2Cx_start(i2c);
+	I2Cx_Polling_start(i2c);
 	while(!(i2c->CR1&(1<<0)));
 	i2c->DR=(slave_addr<<1)|I2C_READ;
 	while(!(i2c->SR1&(1<<1)));
@@ -148,7 +145,7 @@ void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8
 	if(length==1){
 		i2c->CR1&=~(1<<10);
 		(void)i2c->SR1; (void)i2c->SR2;
-		I2Cx_stop(i2c);
+		I2Cx_Polling_stop(i2c);
 		while(!(i2c->SR1&(1<<6)));
 		buffer[0]=i2c->DR;
 	}
@@ -156,7 +153,7 @@ void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8
 		i2c->CR1|=(1<<11); i2c->CR1&=~(1<<10);
 		(void)i2c->SR1; (void)i2c->SR2;
 		while(!(i2c->SR1&(1<<2)));
-		I2Cx_stop(i2c);
+		I2Cx_Polling_stop(i2c);
 		buffer[0]=i2c->DR;
 		buffer[1]=i2c->DR;
 	}
@@ -173,6 +170,9 @@ void I2Cx_read(I2C_TypeDef *i2c,uint8_t slave_addr, uint8_t register_addr, uint8
 		i2c->CR1&=~(1<<10);
 		while(!(i2c->SR1&(1<<6)));
 		buffer[i]=i2c->DR;
-		I2Cx_stop(i2c);
+		I2Cx_Polling_stop(i2c);
 	}
 }
+
+
+
