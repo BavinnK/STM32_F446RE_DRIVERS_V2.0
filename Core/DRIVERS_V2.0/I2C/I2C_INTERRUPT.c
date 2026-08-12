@@ -1,15 +1,23 @@
 #include "I2C_INTERRUPT.h"
 #include <stddef.h>
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// DEFINES & GLOBAL VARIABLES
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 #define I2C_WRITE 0
 #define I2C_READ  1
 
-static uint16_t slave_addr_global=0;
-static uint16_t register_addr_global=0;
-static uint8_t *buffer_global=NULL;
-static I2C_TypeDef *i2c_global;
-static uint8_t length_global=0;
+static uint16_t 		slave_addr_global=0;
+static uint16_t 		register_addr_global=0;
+static uint8_t 			*buffer_global=NULL;
+static I2C_TypeDef 		*i2c_global;
+static uint8_t 			length_global=0;
+static volatile uint8_t index=0;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// END DEFINES & GLOBAL VARIABLES
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // INLINE FUNCTIONS
@@ -147,7 +155,25 @@ void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regist
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void I2C1_EV_IRQHandler(void){
-
+	if(i2c_global->SR1&(1<<0)){
+		i2c_global->DR=(slave_addr_global<<1)|I2C_WRITE;
+	}
+	else if(i2c_global->SR1&(1<<1)){
+		(void)i2c_global->SR1; (void)i2c_global->SR2;
+		i2c_global->DR=(register_addr_global);
+	}
+	else if(i2c_global->SR1&(1<<7)){
+		if(index<length_global){
+			i2c_global->DR=*buffer_global++;
+			index++;
+		}
+	}
+	else if(i2c_global->SR1&(1<<2)){
+		if(index>=length_global){
+			i2c_global->CR1|=(1<<9);
+			index=0;
+		}
+	}
 }
 
 void I2C2_EV_IRQHandler(void){
