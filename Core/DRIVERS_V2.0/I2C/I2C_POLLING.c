@@ -84,7 +84,7 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 
 }
 
-void I2Cx_Polling_init(I2C_TypeDef *i2c, i2c_config_t *config){
+void I2Cx_Polling_init(I2C_TypeDef *i2c, i2c__polling_config_t *config){
 	i2c_pin_clk_config(i2c);
 
 	i2c->CR1&=~(1<<0);
@@ -173,6 +173,5 @@ void I2Cx_Polling_read(I2C_TypeDef *i2c,uint16_t slave_addr, uint16_t register_a
 		I2Cx_Polling_stop(i2c);
 	}
 }
-
 
 

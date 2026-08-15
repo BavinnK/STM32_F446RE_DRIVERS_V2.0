@@ -32,6 +32,7 @@
 #include "TIM.h"
 #include "TIM_OC.h"
 #include "EXTI.h"
+#include "I2C_INTERRUPT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -71,21 +72,18 @@
   * @retval int
   */
 
-uint8_t toggle=1;
-void exti_idk(void){//char buff[100];
-	toggle^=1;
-	GPIO_set_level(GPIOA, 5,toggle);
-
-}
 int main(void)
 {
 	system_clk_180mhz();
 
-	UART2_init(115200);
+	//UART2_init(115200);
 
-	systick_init();
+	//systick_init();
+	//RCC->AHB1ENR |= (1 << 1);
 
-
+	//i2c__polling_config_t pol={};
+	//I2Cx_Polling_init(I2C1, &pol);
+	I2Cx_Polling_start(I2C1);
 
 
 	char buff[100];
@@ -93,8 +91,8 @@ int main(void)
 	while (1)
 	{
 		uint8_t dat=0;
-
-		sprintf(buff,"WHO_AM_I:%d\n\r",dat);
+		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &dat, 1);
+ 		sprintf(buff,"WHO_AM_I:%d\n\r",dat);
 		UART2_write_string(buff);
 		delay_ms(200);
 
