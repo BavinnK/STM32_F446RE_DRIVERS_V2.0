@@ -14,6 +14,7 @@ RM := rm -rf
 -include Core/Src/subdir.mk
 -include Core/DRIVERS_V2.0/UART/subdir.mk
 -include Core/DRIVERS_V2.0/TIM/subdir.mk
+-include Core/DRIVERS_V2.0/SPI/subdir.mk
 -include Core/DRIVERS_V2.0/I2C/subdir.mk
 -include Core/DRIVERS_V2.0/GPIO/subdir.mk
 -include Core/DRIVERS_V2.0/EXTI/subdir.mk
