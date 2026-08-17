@@ -1,4 +1,7 @@
 ../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
-../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:8:20:spi_set	88	static
-../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:84:20:spi_IT	16	static
-../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:95:6:SPIx_INTERRUPT_init	16	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:25:20:spi_set	88	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:101:20:spi_IT	16	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:115:6:SPIx_INTERRUPT_init	16	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:127:6:SPIx_INTERRUPT_transmit	24	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:140:6:SPIx_INTERRUPT_receive	24	static
+../Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.c:159:6:SPI1_IRQHandler	4	static
