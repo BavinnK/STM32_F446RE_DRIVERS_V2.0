@@ -147,6 +147,20 @@ void SPIx_INTERRUPT_receive(SPI_TypeDef *spi, uint8_t *buffer, uint16_t length){
 	spi->CR2|=(1<<7);
 }
 
+void SPIx_INTERRUPT_transfer(SPI_TypeDef *spi, uint8_t *tx_buffer, uint16_t tx_length, uint8_t *rx_buffer, uint16_t rx_length){
+	spi_data.mode=2;
+	spi_data.rx_buffer=rx_buffer;
+	spi_data.rx_length=rx_length;
+	spi_data.spi=spi;
+	spi_data.rx_index=0;
+	spi_data.tx_buffer=++tx_buffer;
+	spi_data.tx_length=tx_length;
+	spi_data.tx_index=0;
+	spi->DR=*tx_buffer;
+
+	spi->CR2|=(1<<7);
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
