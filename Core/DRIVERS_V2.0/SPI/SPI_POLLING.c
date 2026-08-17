@@ -90,7 +90,7 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 // FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void SPIx_init(SPI_TypeDef *spi,spi_config_t *config){
+void SPIx_POLLING_init(SPI_TypeDef *spi,spi_polling_config_t *config){
 	spi_set(spi, config->cs_port, config->cs_pin);
 	spi->CR1&=~(1<<6);
 	spi->CR1&=~((1<<11)|(1<<10)|(1<<7)|(7<<3)|(1<<1)|(1<<0));
@@ -99,7 +99,7 @@ void SPIx_init(SPI_TypeDef *spi,spi_config_t *config){
 	spi->CR1|=(1<<6);
 }
 
-uint8_t SPIx_transfer(SPI_TypeDef *spi,uint8_t data){
+uint8_t SPIx_POLLING_transfer(SPI_TypeDef *spi,uint8_t data){
 		while(!(spi->SR&(1<<1)));
 		spi->DR=data;
 
@@ -107,21 +107,21 @@ uint8_t SPIx_transfer(SPI_TypeDef *spi,uint8_t data){
 		return spi->DR;
 }
 
-void SPIx_transmit(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
+void SPIx_POLLING_transmit(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
 	for(uint32_t i=0;i<length;i++){
-		SPIx_transfer(spi, *buffer++);
+		SPIx_POLLING_transfer(spi, *buffer++);
 	}
 }
-void SPIx_receive(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
+void SPIx_POLLING_receive(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
 	for(uint32_t i=0;i<length;i++){
-		*buffer++=SPIx_transfer(spi, 0x00);
+		*buffer++=SPIx_POLLING_transfer(spi, 0x00);
 	}
 }
 
-void SPIx_CS_LOW(GPIO_TypeDef *port,uint8_t CS){
+void SPIx_POLLING_CS_LOW(GPIO_TypeDef *port,uint8_t CS){
 	GPIO_set_level(port, CS, 0);
 }
-void SPIx_CS_HIGH(GPIO_TypeDef *port,uint8_t CS){
+void SPIx_POLLING_CS_HIGH(GPIO_TypeDef *port,uint8_t CS){
 	GPIO_set_level(port, CS, 1);
 }
 
