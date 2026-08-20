@@ -101,12 +101,23 @@ void SPIx_Dma_init(SPI_TypeDef *spi, spi_dma_config_t *config){
 	spi->CR1|=(1<<6);
 }
 
-
 void SPIx_Dma_Transmit(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buffer, uint16_t length){
 	stream->CR&=~(1<<0);
+	stream->CR&=~(3<<6);
+	stream->CR|=(1<<6);
 	stream->NDTR=length;
 	stream->M0AR=(uint32_t)buffer;
 	stream->PAR=(uint32_t)&spi->DR;
+	stream->CR|=(1<<0);
+}
+
+void SPIx_Dma_Receive(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buffer, uint16_t length){
+	stream->CR&=~(1<<0);
+	stream->CR&=~(3<<6);
+	stream->NDTR=length;
+	stream->M0AR=(uint32_t)buffer;
+	stream->PAR=(uint32_t)&spi->DR;
+	stream->CR|=(1<<0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
