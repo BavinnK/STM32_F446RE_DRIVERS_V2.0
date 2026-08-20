@@ -1,6 +1,7 @@
 #include "SPI_DMA.h"
 
-
+static uint8_t cs;
+static GPIO_TypeDef *port_cs;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // INLINE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,6 +94,8 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 
 void SPIx_Dma_init(SPI_TypeDef *spi, spi_dma_config_t *config){
 	spi_set(spi, config->cs_port, config->cs_pin);
+	cs=config->cs_pin;
+	port_cs=config->cs_port;
 	spi->CR1&=~(1<<6);
 	spi->CR1&=~((1<<11)|(1<<10)|(1<<7)|(7<<3)|(1<<1)|(1<<0));
 	spi->CR1|=(config->data_format<<11)|(1<<9)|(1<<8)|(config->frame_format<<7)|(config->prescaler<<3)|(1<<2)|(config->clock_polarity<<1)|(config->clock_phase<<0);
@@ -108,7 +111,6 @@ void SPIx_Dma_Transmit(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *bu
 	stream->NDTR=length;
 	stream->M0AR=(uint32_t)buffer;
 	stream->PAR=(uint32_t)&spi->DR;
-	stream->CR|=(1<<0);
 }
 
 void SPIx_Dma_Receive(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buffer, uint16_t length){
@@ -117,7 +119,15 @@ void SPIx_Dma_Receive(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buf
 	stream->NDTR=length;
 	stream->M0AR=(uint32_t)buffer;
 	stream->PAR=(uint32_t)&spi->DR;
-	stream->CR|=(1<<0);
+}
+
+void SPIx_Dma_Transfer(SPI_TypeDef *spi,DMA_Stream_TypeDef *tx_stream, DMA_Stream_TypeDef *rx_stream, uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t length){
+	SPIx_POLLING_CS_LOW(port_cs, cs);
+	SPIx_Dma_Transmit(spi, tx_stream, tx_buffer, length);
+	SPIx_Dma_Receive(spi, rx_stream, rx_buffer, length);
+	rx_stream->CR|=(1<<0);
+	tx_stream->CR|=(1<<0);
+	SPIx_POLLING_CS_HIGH(port_cs, cs);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
