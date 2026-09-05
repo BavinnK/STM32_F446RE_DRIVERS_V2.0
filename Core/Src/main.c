@@ -28,7 +28,7 @@
 #include "UART.h"
 #include "ADC.h"
 #include "DMA.h"
-
+#include "SPI/SPI_POLLING.h"
 #include "TIM.h"
 #include "TIM_OC.h"
 #include "EXTI.h"
@@ -78,23 +78,27 @@ int main(void)
 
 	//UART2_init(115200);
 
-	//systick_init();
-	//RCC->AHB1ENR |= (1 << 1);
 
-	//i2c__polling_config_t pol={};
-	//I2Cx_Polling_init(I2C1, &pol);
-	I2Cx_Polling_start(I2C1);
+	systick_init();
+	spi_polling_config_t conf_spi={
+			.clock_phase=FIRST_CLK_SPI,
+			.clock_polarity=CK0_IDLE_SPI,
+			.cs_pin=3,
+			.cs_port=GPIOA,
+			.data_format=BIT8_FORMAT_SPI,
+			.frame_format=MSB_FIRST_SPI,
+			.prescaler=2
+	};
+	SPIx_POLLING_init(SPI1, &conf_spi);
+
+
 
 
 	char buff[100];
 
 	while (1)
 	{
-		uint8_t dat=0;
-		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &dat, 1);
- 		sprintf(buff,"WHO_AM_I:%d\n\r",dat);
-		UART2_write_string(buff);
-		delay_ms(200);
+
 
 
 		/* USER CODE BEGIN 3 */
