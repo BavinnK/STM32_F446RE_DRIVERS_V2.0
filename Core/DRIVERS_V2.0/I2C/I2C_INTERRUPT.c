@@ -130,7 +130,7 @@ void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 	config->i2c->CCR=(45000000)/(2*config->speed);
 	config->i2c->TRISE=(45+1);
 
-
+	en_nvic(config->i2c);
 
 	config->i2c->CR1|=(1<<0);
 }
@@ -157,6 +157,9 @@ void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regist
 void I2C1_EV_IRQHandler(void){
 	if(i2c_global->SR1&(1<<0)){
 		i2c_global->DR=(slave_addr_global<<1)|I2C_WRITE;
+	}
+	else if(i2c_global->SR1&(1<<10)){
+		i2c_global->CR1|=(1<<9);
 	}
 	else if(i2c_global->SR1&(1<<1)){
 		(void)i2c_global->SR1; (void)i2c_global->SR2;

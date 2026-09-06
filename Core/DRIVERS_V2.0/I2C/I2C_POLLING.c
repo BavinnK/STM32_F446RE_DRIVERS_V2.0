@@ -119,7 +119,8 @@ void I2Cx_Polling_stop(I2C_TypeDef *i2c){
 void I2Cx_Polling_write(I2C_TypeDef* i2c,uint8_t slave_addr, uint8_t register_addr, uint8_t *buffer, uint16_t length){
 	I2Cx_Polling_start(i2c);
 	i2c->DR=(slave_addr<<1)|I2C_WRITE;
-	while (!(i2c->SR1 & (1 << 1)));
+	while (!(i2c->SR1&(1<<1))&&!(i2c->SR1&(1<<10)));
+	if (i2c->SR1& (1<<10)){i2c->SR1 &= ~(1 << 10); I2Cx_Polling_stop(i2c); return; }
 
 	(void)i2c->SR1;
 	(void)i2c->SR2;

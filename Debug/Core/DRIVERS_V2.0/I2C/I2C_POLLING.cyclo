@@ -2,5 +2,5 @@
 ../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:90:6:I2Cx_Polling_init	1
 ../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:110:6:I2Cx_Polling_start	2
 ../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:115:6:I2Cx_Polling_stop	1
-../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:119:6:I2Cx_Polling_write	5
-../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:139:6:I2Cx_Polling_read	14
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:119:6:I2Cx_Polling_write	7
+../Core/DRIVERS_V2.0/I2C/I2C_POLLING.c:140:6:I2Cx_Polling_read	14
