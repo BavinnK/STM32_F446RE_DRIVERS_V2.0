@@ -17,6 +17,9 @@ typedef struct{
 }i2c_interrupt_config_t;
 
 void I2Cx_Interrupt_init(i2c_interrupt_config_t *config);
+void I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length);
+void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length);
+
 
 
 

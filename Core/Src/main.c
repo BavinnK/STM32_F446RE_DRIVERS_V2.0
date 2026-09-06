@@ -17,7 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "I2C_POLLING.h"
+//#include "I2C_POLLING.h"
 #include "main.h"
 #include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
@@ -32,7 +32,7 @@
 #include "TIM.h"
 #include "TIM_OC.h"
 #include "EXTI.h"
-//#include "I2C_INTERRUPT.h"
+#include "I2C_INTERRUPT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,12 +81,12 @@ int main(void)
 
 	systick_init();
 
-	i2c__polling_config_t i2c_poll={
-			.speed=100000
-	};
-
-
-	I2Cx_Polling_init(I2C1, &i2c_poll);
+	 i2c_interrupt_config_t i2c_con={
+			 .i2c=I2C1,
+			 .speed=100000
+	 };
+	 I2Cx_Interrupt_init(&i2c_con);
+	//I2Cx_Polling_init(I2C1, &i2c_poll);
 
 
 	char buff[100];
@@ -94,7 +94,8 @@ int main(void)
 	while (1)
 	{
 		uint8_t buffer=0;
-		I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
+		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
+		I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
 		sprintf(buff,"%d \n\r", buffer);
 		UART2_write_string(buff);
 		delay_ms(1000);
