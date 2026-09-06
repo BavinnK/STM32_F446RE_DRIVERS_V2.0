@@ -17,7 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <I2C_POLLING.h>
+#include "I2C_POLLING.h"
 #include "main.h"
 #include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
@@ -28,11 +28,11 @@
 #include "UART.h"
 #include "ADC.h"
 #include "DMA.h"
-#include "SPI/SPI_POLLING.h"
+//#include "SPI/SPI_POLLING.h"
 #include "TIM.h"
 #include "TIM_OC.h"
 #include "EXTI.h"
-#include "I2C_INTERRUPT.h"
+//#include "I2C_INTERRUPT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -72,34 +72,32 @@
   * @retval int
   */
 
+
 int main(void)
 {
 	system_clk_180mhz();
 
-	//UART2_init(115200);
-
+	UART2_init(115200);
 
 	systick_init();
-	spi_polling_config_t conf_spi={
-			.clock_phase=FIRST_CLK_SPI,
-			.clock_polarity=CK0_IDLE_SPI,
-			.cs_pin=3,
-			.cs_port=GPIOA,
-			.data_format=BIT8_FORMAT_SPI,
-			.frame_format=MSB_FIRST_SPI,
-			.prescaler=2
+
+	i2c__polling_config_t i2c_poll={
+			.speed=100000
 	};
-	SPIx_POLLING_init(SPI1, &conf_spi);
 
 
+	I2Cx_Polling_init(I2C1, &i2c_poll);
 
 
 	char buff[100];
 
 	while (1)
 	{
-
-
+		uint8_t buffer=0;
+		I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
+		sprintf(buff,"%d \n\r", buffer);
+		UART2_write_string(buff);
+		delay_ms(1000);
 
 		/* USER CODE BEGIN 3 */
 	}
