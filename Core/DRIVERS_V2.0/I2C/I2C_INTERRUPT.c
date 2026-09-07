@@ -28,12 +28,11 @@ typedef enum {
 	I2C_REG_ADDR,
 	I2C_REPEATED_START,
 	I2C_SEND,
-	I2C_ACK,
-	I2C_NACK
+
 
 }i2c_states;
 
-i2c_states i2c_state=I2C_STOP;
+i2c_states i2c_state=I2C_IDLE;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END DEFINES & GLOBAL VARIABLES & ENUMS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,14 +48,14 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 		gpio_config_t i2c1_sda_PB9_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_PULLUP,
+			.pupdr=GPIOx_PUPDR_DISABLE,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=9
 		};
 		gpio_config_t i2c1_scl_PB8_config={
 			.mode=GPIOx_MODE_ALTERNATE,
 			.otype=GPIOx_OTYPE_OPEN_DRAIN,
-			.pupdr=GPIOx_PUPDR_PULLUP,
+			.pupdr=GPIOx_PUPDR_DISABLE,
 			.speed=GPIOx_SPEED_HIGH_SPEED,
 			.pin=8
 		};
@@ -147,7 +146,7 @@ void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 	config->i2c->CCR=225;
 	config->i2c->TRISE=(45+1);
 
-	if(config->i2c ==I2C1) 	   NVIC_EnableIRQ(I2C1_EV_IRQn);
+	if(config->i2c ==I2C1) 	   { NVIC_EnableIRQ(I2C1_EV_IRQn); NVIC_EnableIRQ(I2C1_ER_IRQn); }
 	else if(config->i2c ==I2C2) NVIC_EnableIRQ(I2C2_EV_IRQn);
 	else if(config->i2c ==I2C3) NVIC_EnableIRQ(I2C3_EV_IRQn);
 
@@ -201,30 +200,22 @@ void I2C1_EV_IRQHandler(void){
 		}
 	}
 
-	else if(I2C1->SR1&(1<<1) || (I2C1->SR1&(1<<10))){
-		if(I2C1->SR1&(1<<10)){
-			i2c_state=I2C_FAIL;
-			I2C1->SR1&=~(1<<10);
-			I2C1->CR1|=(1<<9);
-			return;
+	else if(I2C1->SR1&(1<<1)){
+		if(i2c_state==I2C_SLAVE_ADDR){
+			(void) I2C1->SR1; (void) I2C1->SR2;
+			I2C1->DR=register_addr_global;
+			i2c_state=I2C_REG_ADDR;
 		}
-		else{
-			if(i2c_state==I2C_SLAVE_ADDR){
+		else if(i2c_state==I2C_SEND){
+			if(length_global==1){
+				I2C1->CR1&=~(1<<10);
 				(void) I2C1->SR1; (void) I2C1->SR2;
-				I2C1->DR=register_addr_global;
-				i2c_state=I2C_REG_ADDR;
-			}
-			else if(i2c_state==I2C_SEND){
-				if(length_global==1){
-					I2C1->CR1&=~(1<<10);
-					(void) I2C1->SR1; (void) I2C1->SR2;
-					I2C1->CR1|=(1<<9);
-					i2c_state=I2C_STOP;
-				}
-
+				I2C1->CR1|=(1<<9);
+				i2c_state=I2C_STOP;
 			}
 		}
 	}
+
 	else if(I2C1->SR1&(1<<7)){
 		i2c_state=I2C_REPEATED_START;
 		I2C1->CR1|=(1<<8);
@@ -239,7 +230,14 @@ void I2C1_EV_IRQHandler(void){
 	}
 }
 
-
+void I2C1_ER_IRQHandler(void){
+	if(I2C1->SR1&(1<<10)){
+		i2c_state=I2C_FAIL;
+		I2C1->SR1&=~(1<<10);
+		I2C1->CR1|=(1<<9);
+		return;
+	}
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION HANDLERS
 ///////////////////////////////////////////////////////////////////////////////////////////////////

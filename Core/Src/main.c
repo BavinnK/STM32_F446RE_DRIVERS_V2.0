@@ -75,6 +75,7 @@
 uint8_t buffer=0;
 int main(void)
 {
+	__enable_irq();
 	system_clk_180mhz();
 
 	UART2_init(115200);
@@ -88,15 +89,16 @@ int main(void)
 	 I2Cx_Interrupt_init(&i2c_con);
 	//I2Cx_Polling_init(I2C1, &i2c_poll);
 
-		uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
+
 
 
 	char buff[100];
-
+//uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
 	while (1)
 	{
 
 		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
+		uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
 
 			sprintf(buff,"%d \n\r", buffer);
 			UART2_write_string(buff);
