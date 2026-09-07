@@ -72,7 +72,7 @@
   * @retval int
   */
 
-
+uint8_t buffer=0;
 int main(void)
 {
 	system_clk_180mhz();
@@ -88,17 +88,22 @@ int main(void)
 	 I2Cx_Interrupt_init(&i2c_con);
 	//I2Cx_Polling_init(I2C1, &i2c_poll);
 
+		uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
+
 
 	char buff[100];
 
 	while (1)
 	{
-		uint8_t buffer=0;
+
 		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
-		I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
-		sprintf(buff,"%d \n\r", buffer);
-		UART2_write_string(buff);
-		delay_ms(1000);
+
+			sprintf(buff,"%d \n\r", buffer);
+			UART2_write_string(buff);
+			delay_ms(1000);
+
+		//delay_ms(1000);
+
 
 		/* USER CODE BEGIN 3 */
 	}

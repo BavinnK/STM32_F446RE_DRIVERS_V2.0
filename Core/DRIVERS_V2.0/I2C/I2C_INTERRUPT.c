@@ -2,24 +2,40 @@
 #include <stddef.h>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// DEFINES & GLOBAL VARIABLES
+// DEFINES & GLOBAL VARIABLES & ENUMS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define I2C_WRITE 0
 #define I2C_READ  1
 #define write	  0
 #define read	  1
-static uint8_t state;
-static uint8_t status=1;
-static uint16_t 		slave_addr_global=0;
-static uint16_t 		register_addr_global=0;
-static uint8_t 			*buffer_global=NULL;
-static I2C_TypeDef 		*i2c_global;
-static uint8_t 			length_global=0;
-static volatile uint8_t index=0;
+static volatile uint8_t 	state;
+static volatile uint8_t 	status=1;
+static volatile uint16_t 	slave_addr_global=0;
+static volatile uint16_t 	register_addr_global=0;
+static volatile uint8_t 	*buffer_global=NULL;
+static I2C_TypeDef 			*i2c_global;
+static volatile uint8_t 	length_global=0;
+static volatile uint8_t 	index=0;
+volatile uint8_t 			i2c_done = 0;
 
+typedef enum {
+	I2C_STOP,
+	I2C_START,
+	I2C_IDLE,
+	I2C_SLAVE_ADDR,
+	I2C_FAIL,
+	I2C_REG_ADDR,
+	I2C_REPEATED_START,
+	I2C_SEND,
+	I2C_ACK,
+	I2C_NACK
+
+}i2c_states;
+
+i2c_states i2c_state=I2C_STOP;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-// END DEFINES & GLOBAL VARIABLES
+// END DEFINES & GLOBAL VARIABLES & ENUMS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,8 +63,8 @@ static void i2c_pin_clk_config(I2C_TypeDef *i2c){
 		GPIO_init(GPIOB, &i2c1_sda_PB9_config);
 		GPIO_init(GPIOB, &i2c1_scl_PB8_config);
 
-		GPIOB->AFR[1]&=~(0b1111<<((9*4)-34));
-		GPIOB->AFR[1]|=(4<<((9*4)-34));
+		GPIOB->AFR[1]&=~(0b1111<<((9*4)-32));
+		GPIOB->AFR[1]|=(4<<((9*4)-32));
 
 		GPIOB->AFR[1]&=~(0b1111<<((8*4)-32));
 		GPIOB->AFR[1]|=(4<<((8*4)-32));
@@ -144,19 +160,25 @@ void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regist
 	slave_addr_global=slave_addr;
 	register_addr_global=register_addr;
 	length_global=length;
-	state=write;
+
 	i2c->CR1|=(1<<8);
 }
 
-void I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
+uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
 	i2c_global=i2c;
 	buffer_global=buffer;
 	slave_addr_global=slave_addr;
 	register_addr_global=register_addr;
 	length_global=length;
-	state=read;
+	i2c_state=I2C_START;
 	index=0;
 	i2c->CR1|=(1<<8);
+	if(state==I2C_FAIL) {
+		i2c_state=I2C_START;
+		I2C1->CR1|=(1<<8);
+		return 1;
+	}
+	else return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,103 +190,55 @@ void I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t registe
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void I2C1_EV_IRQHandler(void){
-	if(state==write){
-		if(i2c_global->SR1&(1<<0)){
-			i2c_global->DR=(slave_addr_global<<1)|I2C_WRITE;
+	if(I2C1->SR1&(1<<0)){
+		if(i2c_state==I2C_START){
+			I2C1->DR=(slave_addr_global<<1)|I2C_WRITE;
+			i2c_state=I2C_SLAVE_ADDR;
 		}
-		else if(i2c_global->SR1&(1<<10)){
-			i2c_global->CR1|=(1<<9);
+		else if(i2c_state==I2C_REPEATED_START){
+			I2C1->DR=(slave_addr_global<<1)|I2C_READ;
+			i2c_state=I2C_SEND;
 		}
-		else if(i2c_global->SR1&(1<<1)){
-			(void)i2c_global->SR1; (void)i2c_global->SR2;
-			i2c_global->DR=(register_addr_global);
+	}
+
+	else if(I2C1->SR1&(1<<1) || (I2C1->SR1&(1<<10))){
+		if(I2C1->SR1&(1<<10)){
+			i2c_state=I2C_FAIL;
+			I2C1->SR1&=~(1<<10);
+			I2C1->CR1|=(1<<9);
+			return;
 		}
-		else if(i2c_global->SR1&(1<<7)){
-			if(index<length_global){
-				i2c_global->DR=*buffer_global++;
-				index++;
+		else{
+			if(i2c_state==I2C_SLAVE_ADDR){
+				(void) I2C1->SR1; (void) I2C1->SR2;
+				I2C1->DR=register_addr_global;
+				i2c_state=I2C_REG_ADDR;
 			}
-		}
-		else if(i2c_global->SR1&(1<<2)){
-			if(index>=length_global){
-				i2c_global->CR1|=(1<<9);
-				index=0;
+			else if(i2c_state==I2C_SEND){
+				if(length_global==1){
+					I2C1->CR1&=~(1<<10);
+					(void) I2C1->SR1; (void) I2C1->SR2;
+					I2C1->CR1|=(1<<9);
+					i2c_state=I2C_STOP;
+				}
+
 			}
 		}
 	}
-	if(state==read){
-		if(i2c_global->SR1&(1<<0)){
-			if(status==1){
-				i2c_global->DR=(slave_addr_global<<1)|I2C_WRITE;
-				status=3;
-			}
-			else if(status==2){
-				i2c_global->DR=(slave_addr_global<<1)|I2C_READ;
-				status=4;
-			}
-		}
-		else if(i2c_global->SR1&(1<<10)){
-			i2c_global->CR1|=(1<<9);
-			status=1;
-		}
-		else if(i2c_global->SR1&(1<<1)){
-			if(status==3){
-				(void)i2c_global->SR1; (void)i2c_global->SR2;
-				i2c_global->DR=(register_addr_global);
-			}
-			else if(status==4){
-				if(length_global==1){
-					i2c_global->CR1 &= ~(1<<10);
-					(void)i2c_global->SR1; (void)i2c_global->SR2;
-					i2c_global->CR1|=(1<<9);
-				}
-				else if(length_global==2){
-					i2c_global->CR1|=(1<<11); i2c_global->CR1&=~(1<<10);
-					(void)i2c_global->SR1; (void)i2c_global->SR2;
+	else if(I2C1->SR1&(1<<7)){
+		i2c_state=I2C_REPEATED_START;
+		I2C1->CR1|=(1<<8);
+	}
+	else if(I2C1->SR1&(1<<6)){
+		buffer_global[0]=I2C1->DR;
+		i2c_state=I2C_IDLE;
+	}
 
-				}
-				else if(length_global>2){
-					(void)i2c_global->SR1; (void)i2c_global->SR2;
-
-					if(index<length_global){
-						i2c_global->CR1|=(1<<10);
-
-					}
-				}
-			}
-		}
-		else if(i2c_global->SR1&(1<<2)){
-			i2c_global->CR1|=(1<<9);
-			buffer_global[0]=i2c_global->DR;
-			buffer_global[1]=i2c_global->DR;
-			status=1;
-		}
-		else if(i2c_global->SR1&(1<<7)){
-			i2c_global->CR1|=(1<<8);
-			status=2;
-		}
-		else if(i2c_global->SR1&(1<<6)){
-			if(length_global==1){
-				buffer_global[0]=i2c_global->DR;
-				status=1;
-			}
-			else if(length_global>2){
-				buffer_global[index]=i2c_global->DR;
-				index++;
-				if(index==(length_global-1)){
-					i2c_global->CR1&=~(1<<10);
-					status=5;
-				}
-			}
-			if(status==5){
-				buffer_global[index]=i2c_global->DR;
-				i2c_global->CR1|=(1<<9);
-				status=1;
-			}
-
-		}
+	if(i2c_state==I2C_IDLE){
+		return;
 	}
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION HANDLERS
