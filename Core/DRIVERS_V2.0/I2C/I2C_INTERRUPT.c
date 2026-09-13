@@ -16,7 +16,7 @@ static volatile uint8_t 	*buffer_global=NULL;
 static I2C_TypeDef 			*i2c_global;
 static volatile uint8_t 	length_global=0;
 static volatile uint8_t 	index=0;
-static volatile uint8_t 	done=0;
+static volatile uint8_t 	read_done=0, write_done=0;
 static volatile uint8_t 	read_write_state;
 
 typedef enum {
@@ -138,6 +138,15 @@ uint8_t stat=0;
 
 void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 
+	gpio_config_t idkconfig={
+				.mode=GPIOx_MODE_OUTPUT,
+				.otype=GPIOx_OTYPE_PUSH_PULL,
+				.pupdr=GPIOx_PUPDR_DISABLE,
+				.speed=GPIOx_SPEED_HIGH_SPEED,
+				.pin=5
+			};
+	GPIO_init(GPIOA, &idkconfig);
+
 	i2c_pin_clk_config(config->i2c);
 
 	config->i2c->CR1=1<<15;
@@ -160,7 +169,7 @@ void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 	config->i2c->CR1|=(1<<0);
 }
 
-void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
+uint8_t I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
 	i2c_global=i2c;
 	buffer_global=buffer;
 	slave_addr_global=slave_addr;
@@ -170,6 +179,10 @@ void I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regist
 	stat=1;
 	read_write_state=write;
 	i2c->CR1|=(1<<8);
+
+	write_done=0;
+	while(write_done==0);
+	return 1;
 }
 
 uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
@@ -182,16 +195,11 @@ uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regi
 	index=0;
 	read_write_state=read;
 	i2c->CR1|=(1<<8);
+	read_done=0;
+	while(read_done==0);
 
-	if(done==1){
-		if(i2c_state==I2C_FAIL) {
-			i2c_state=I2C_START;
-			I2C1->CR1|=(1<<8);
-			return 0;
-		}
-		else return 1;
-	}
-	else return 0;
+	return 1;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,9 +209,13 @@ uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regi
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTION HANDLERS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+volatile uint8_t idk=1;
 void I2C1_EV_IRQHandler(void){
+	idk^=1;
+	GPIO_set_level(GPIOA, 5, idk);
+
 	//BaseType_t xTaskWoken=pdFALSE;
+
 	if(I2C1->SR1&(1<<0)){
 		if(i2c_state==I2C_START){
 			I2C1->DR=(slave_addr_global<<1)|I2C_WRITE;
@@ -224,10 +236,9 @@ void I2C1_EV_IRQHandler(void){
 		else if(i2c_state==I2C_SEND_READ){
 			if(length_global==1){
 				I2C1->CR1&=~(1<<10);
-				(void) I2C1->SR2;
+				(void) I2C1->SR1; (void) I2C1->SR2;
 				I2C1->CR1|=(1<<9);
 			}
-
 		}
 	}
 
@@ -240,27 +251,24 @@ void I2C1_EV_IRQHandler(void){
 			I2C1->DR=*buffer_global;
 			i2c_state=I2C_BTF_WAIT;
 		}
-
 	}
 	if(I2C1->SR1&(1<<2)){
 		 if(i2c_state==I2C_BTF_WAIT && read_write_state==write){
 			I2C1->CR1|=(1<<9);
 			i2c_state=I2C_IDLE;
-			I2C1->CR2&=~(1<<9);
+			//I2C1->CR2&=~(1<<9);
+			write_done=1;
 		}
 	}
 	else if(I2C1->SR1&(1<<6)){
 		if(length_global==1){
 			buffer_global[0]=I2C1->DR;
 			I2C1->CR1|=(1<<9);
-			I2C1->CR2&=~(1<<9);
+			//I2C1->CR2&=~(1<<9);
 			i2c_state=I2C_IDLE;
-			done=1;
+			read_done=1;
 		}
-
 	}
-
-
 
 	if(i2c_state==I2C_IDLE){
 		return;
