@@ -88,21 +88,33 @@ int main(void)
 	 };
 	 I2Cx_Interrupt_init(&i2c_con);
 	//I2Cx_Polling_init(I2C1, &i2c_poll);
+	 uint8_t bufff=0x00;
+	 I2Cx_Interrupt_write(I2C1, 0x68, 0x6B, &bufff,1);
+	 delay_ms(1000);
 
 
-
-
-	char buff[100];
+	char buff[200];
 //uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
 	while (1)
 	{
 
 		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
-		uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
+		uint8_t data;
+		if(I2Cx_Interrupt_Read(I2C1, 0x68, 0x3B, &data, 1)==1){
 
-			sprintf(buff,"%d \n\r", buffer);
+		// Combine them
+
+
+
+			sprintf(buff,"%d -  \n\r", data );
 			UART2_write_string(buff);
-			delay_ms(1000);
+		}
+
+		else{
+			sprintf(buff,"error\n\r");
+						UART2_write_string(buff);
+		}
+			delay_ms(100);
 
 		//delay_ms(1000);
 

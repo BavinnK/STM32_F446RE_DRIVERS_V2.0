@@ -1,7 +1,8 @@
 ../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:44:13:i2c_pin_clk_config	64	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:136:6:I2Cx_Interrupt_init	16	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:156:6:I2Cx_Interrupt_write	24	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:166:9:I2Cx_Interrupt_Read	24	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:191:6:I2C1_EV_IRQHandler	4	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:233:6:I2C1_ER_IRQHandler	4	static
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:47:13:i2c_pin_clk_config	64	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:139:6:I2Cx_Interrupt_init	16	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:163:6:I2Cx_Interrupt_write	24	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:175:9:I2Cx_Interrupt_Read	24	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:205:6:I2C1_EV_IRQHandler	4	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:270:6:I2C1_ER_IRQHandler	4	static
