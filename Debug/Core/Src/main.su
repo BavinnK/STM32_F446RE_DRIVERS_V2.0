@@ -1,2 +1,2 @@
-../Core/Src/main.c:76:5:main	232	static,ignoring_inline_asm
-../Core/Src/main.c:141:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:76:5:main	296	static,ignoring_inline_asm
+../Core/Src/main.c:149:6:Error_Handler	4	static,ignoring_inline_asm

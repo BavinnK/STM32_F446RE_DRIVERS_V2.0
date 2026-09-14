@@ -211,7 +211,7 @@ uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regi
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTION HANDLERS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-volatile uint8_t idk=1;
+volatile uint8_t idk=1,nack_done=0;
 void I2C1_EV_IRQHandler(void){
 	idk^=1;
 	GPIO_set_level(GPIOA, 5, idk);
@@ -245,6 +245,10 @@ void I2C1_EV_IRQHandler(void){
 				I2C1->CR1|=(1<<11); I2C1->CR1&=~(1<<10);
 				(void) I2C1->SR1; (void) I2C1->SR2;
 				i2c_state=I2C_BTF_WAIT;
+			}
+			else if(length_global>2){
+				(void) I2C1->SR1; (void) I2C1->SR2;
+				I2C1->CR1|=(1<<10);
 			}
 		}
 	}
@@ -284,9 +288,26 @@ void I2C1_EV_IRQHandler(void){
 			i2c_state=I2C_IDLE;
 			read_done=1;
 		}
-		else if(length_global==2){
-			buffer_global[index]=I2C1->DR;
+		else if(length_global>2){
+			if(length_global-1 !=index){
+				buffer_global[index]=I2C1->DR;
+				index++;
+				I2C1->CR1|=(1<<10);
 
+			}
+			else if(length_global-1==index && nack_done==0){
+				I2C1->CR1&=~(1<<10);
+				nack_done=1;
+				return;
+			}
+			else{
+				buffer_global[index]=I2C1->DR;
+				I2C1->CR1|=(1<<9);
+				i2c_state=I2C_IDLE;
+				nack_done=0;
+				read_done=1;
+				return;
+			}
 		}
 	}
 

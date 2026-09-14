@@ -99,22 +99,30 @@ int main(void)
 	{
 
 		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
-		uint8_t data[2];
-		if(I2Cx_Interrupt_Read(I2C1, 0x77, 0xAE, data, 1)==1){
+		uint8_t calib[22];
 
-		// Combine them
+		if (I2Cx_Interrupt_Read(I2C1, 0x77, 0xAA, calib, 22) == 1)
+		{
+			int16_t AC1 = (int16_t)(((uint16_t)calib[0] << 8) | calib[1]);
+			int16_t AC2 = (int16_t)(((uint16_t)calib[2] << 8) | calib[3]);
+			int16_t AC3 = (int16_t)(((uint16_t)calib[4] << 8) | calib[5]);
 
-			uint16_t idk=(data[0]<<8)|data[1];
+			uint16_t AC4 = ( calib[6] << 8) | calib[7];
+			uint16_t AC5 = ( calib[8] << 8) | calib[9];
+			uint16_t AC6 = ( calib[10] << 8) | calib[11];
 
-			sprintf(buff,"%d   \n\r", idk );
-			UART2_write_string(buff);
+			int16_t B1 = (int16_t)(((uint16_t)calib[12] << 8) | calib[13]);
+			int16_t B2 = (int16_t)(((uint16_t)calib[14] << 8) | calib[15]);
+			int16_t MB = (int16_t)(((uint16_t)calib[16] << 8) | calib[17]);
+			int16_t MC = (int16_t)(((uint16_t)calib[18] << 8) | calib[19]);
+			int16_t MD = (int16_t)(((uint16_t)calib[20] << 8) | calib[21]);
+		    sprintf(buff, "AC1: %d, AC2:%d, AC3:%d, AC4:%d, AC5:%d, AC6:%d \n\r", AC1, AC2, AC3, AC4, AC5, AC6);
+		    UART2_write_string(buff);
+
+
+
 		}
-
-		else{
-			sprintf(buff,"error\n\r");
-						UART2_write_string(buff);
-		}
-			delay_ms(100);
+		delay_ms(400);
 
 		//delay_ms(1000);
 
