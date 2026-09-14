@@ -150,7 +150,7 @@ void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 	i2c_pin_clk_config(config->i2c);
 
 	config->i2c->CR1=1<<15;
-		//for(volatile int i=0; i<1000; i++);
+	delay_ms(5);
 	config->i2c->CR1=0;
 	config->i2c->CR2|=(1<<10)|(1<<9)|(1<<8);
 
@@ -170,6 +170,7 @@ void I2Cx_Interrupt_init(i2c_interrupt_config_t *config){
 }
 
 uint8_t I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
+	write_done=0;
 	i2c_global=i2c;
 	buffer_global=buffer;
 	slave_addr_global=slave_addr;
@@ -180,12 +181,13 @@ uint8_t I2Cx_Interrupt_write(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t reg
 	read_write_state=write;
 	i2c->CR1|=(1<<8);
 
-	write_done=0;
+
 	while(write_done==0);
 	return 1;
 }
 
 uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t register_addr, uint8_t *buffer, uint8_t length){
+	read_done=0;
 	i2c_global=i2c;
 	buffer_global=buffer;
 	slave_addr_global=slave_addr;
@@ -195,7 +197,7 @@ uint8_t I2Cx_Interrupt_Read(I2C_TypeDef *i2c, uint16_t slave_addr, uint16_t regi
 	index=0;
 	read_write_state=read;
 	i2c->CR1|=(1<<8);
-	read_done=0;
+
 	while(read_done==0);
 
 	return 1;
@@ -215,7 +217,7 @@ void I2C1_EV_IRQHandler(void){
 	GPIO_set_level(GPIOA, 5, idk);
 
 	//BaseType_t xTaskWoken=pdFALSE;
-
+	//SB FLAG
 	if(I2C1->SR1&(1<<0)){
 		if(i2c_state==I2C_START){
 			I2C1->DR=(slave_addr_global<<1)|I2C_WRITE;
@@ -226,7 +228,7 @@ void I2C1_EV_IRQHandler(void){
 			i2c_state=I2C_SEND_READ;
 		}
 	}
-
+	//ADDR FLAG
 	if(I2C1->SR1&(1<<1)){
 		if(i2c_state==I2C_SLAVE_ADDR){
 			(void) I2C1->SR1; (void) I2C1->SR2;
@@ -239,9 +241,14 @@ void I2C1_EV_IRQHandler(void){
 				(void) I2C1->SR1; (void) I2C1->SR2;
 				I2C1->CR1|=(1<<9);
 			}
+			else if(length_global==2){
+				I2C1->CR1|=(1<<11); I2C1->CR1&=~(1<<10);
+				(void) I2C1->SR1; (void) I2C1->SR2;
+				i2c_state=I2C_BTF_WAIT;
+			}
 		}
 	}
-
+	//TXE FLAG
 	else if(I2C1->SR1&(1<<7)){
 		if(i2c_state==I2C_REG_ADDR && read_write_state==read){
 			i2c_state=I2C_REPEATED_START;
@@ -252,21 +259,34 @@ void I2C1_EV_IRQHandler(void){
 			i2c_state=I2C_BTF_WAIT;
 		}
 	}
+	//BTF FLAG
 	if(I2C1->SR1&(1<<2)){
 		 if(i2c_state==I2C_BTF_WAIT && read_write_state==write){
 			I2C1->CR1|=(1<<9);
 			i2c_state=I2C_IDLE;
-			//I2C1->CR2&=~(1<<9);
 			write_done=1;
 		}
+		 else if(i2c_state==I2C_BTF_WAIT && read_write_state==read){
+			 I2C1->CR1|=(1<<9);
+			 buffer_global[0]=I2C1->DR;
+			 buffer_global[1]=I2C1->DR;
+			 I2C1->CR1&=~(1<<11);
+			 i2c_state=I2C_IDLE;
+			 read_done=1;
+		 }
 	}
+	//RXE FLAG
 	else if(I2C1->SR1&(1<<6)){
 		if(length_global==1){
 			buffer_global[0]=I2C1->DR;
 			I2C1->CR1|=(1<<9);
-			//I2C1->CR2&=~(1<<9);
+
 			i2c_state=I2C_IDLE;
 			read_done=1;
+		}
+		else if(length_global==2){
+			buffer_global[index]=I2C1->DR;
+
 		}
 	}
 

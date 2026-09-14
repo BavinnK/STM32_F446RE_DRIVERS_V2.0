@@ -88,8 +88,8 @@ int main(void)
 	 };
 	 I2Cx_Interrupt_init(&i2c_con);
 	//I2Cx_Polling_init(I2C1, &i2c_poll);
-	 uint8_t bufff=0x00;
-	 I2Cx_Interrupt_write(I2C1, 0x68, 0x6B, &bufff,1);
+	 //uint8_t bufff=0x00;
+	 //I2Cx_Interrupt_write(I2C1, 0x68, 0x6B, &bufff,1);
 	 delay_ms(1000);
 
 
@@ -99,14 +99,14 @@ int main(void)
 	{
 
 		//I2Cx_Polling_read(I2C1, 0x68, 0x75, &buffer, 1);
-		uint8_t data;
-		if(I2Cx_Interrupt_Read(I2C1, 0x68, 0x3B, &data, 1)==1){
+		uint8_t data[2];
+		if(I2Cx_Interrupt_Read(I2C1, 0x77, 0xAE, data, 1)==1){
 
 		// Combine them
 
+			uint16_t idk=(data[0]<<8)|data[1];
 
-
-			sprintf(buff,"%d   \n\r", data );
+			sprintf(buff,"%d   \n\r", idk );
 			UART2_write_string(buff);
 		}
 

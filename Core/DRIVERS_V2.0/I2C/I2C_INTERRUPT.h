@@ -4,6 +4,8 @@
 #include "stdint.h"
 #include "stm32f446xx.h"
 #include "GPIO.h"
+#include "DELAY.h"
+
 
 typedef enum{
 	I2C_STATE_REG=0,

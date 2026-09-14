@@ -3,6 +3,6 @@
 ../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:47:13:i2c_pin_clk_config	64	static
 ../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:139:6:I2Cx_Interrupt_init	24	static
 ../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:172:9:I2Cx_Interrupt_write	24	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:188:9:I2Cx_Interrupt_Read	24	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:213:6:I2C1_EV_IRQHandler	8	static
-../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:278:6:I2C1_ER_IRQHandler	4	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:189:9:I2Cx_Interrupt_Read	24	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:215:6:I2C1_EV_IRQHandler	8	static
+../Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.c:298:6:I2C1_ER_IRQHandler	4	static
