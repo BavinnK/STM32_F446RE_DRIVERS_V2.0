@@ -85,8 +85,8 @@
 #define ILI9341_STM32_DRIVER_H
 #include "main.h"
 #include "stm32f4xx_hal.h"
-#include "FreeRTOS.h"
-#include "MySPI.h"
+
+#include "SPI/SPI_DMA.h"
 
 #define ILI9341_SCREEN_HEIGHT 240 
 #define ILI9341_SCREEN_WIDTH 	320

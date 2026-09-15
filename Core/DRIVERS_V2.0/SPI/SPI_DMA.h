@@ -30,7 +30,10 @@ typedef struct{
 // FUNCTION PROTOTYPES
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+void SPIx_Dma_init(SPI_TypeDef *spi, spi_dma_config_t *config);
+void SPIx_Dma_Transmit(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buffer, uint16_t length);
+void SPIx_Dma_Receive(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *buffer, uint16_t length);
+void SPIx_Dma_Transfer(SPI_TypeDef *spi,DMA_Stream_TypeDef *tx_stream, DMA_Stream_TypeDef *rx_stream, uint8_t *tx_buffer, uint8_t *rx_buffer, uint16_t length);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION PROTOTYPES

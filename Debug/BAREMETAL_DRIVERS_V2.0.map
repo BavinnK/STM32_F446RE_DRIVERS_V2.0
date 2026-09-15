@@ -394,6 +394,245 @@ Discarded input sections
  .debug_frame   0x00000000       0xf0 ./Core/DRIVERS_V2.0/I2C/I2C_POLLING.o
  .ARM.attributes
                 0x00000000       0x34 ./Core/DRIVERS_V2.0/I2C/I2C_POLLING.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text          0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .data          0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .rodata.font   0x00000000      0x240 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Hollow_Circle
+                0x00000000      0x16c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Filled_Circle
+                0x00000000      0x110 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Hollow_Rectangle_Coord
+                0x00000000      0x102 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Filled_Rectangle_Coord
+                0x00000000       0xbc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Char
+                0x00000000      0x134 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Text
+                0x00000000       0x5e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .text.ILI9341_Draw_Image
+                0x00000000      0x330 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_info    0x00000000      0x99b ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_abbrev  0x00000000      0x1e6 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_aranges
+                0x00000000       0x50 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_rnglists
+                0x00000000       0x3d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x20c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x28f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x28 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x8e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x51 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x103 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x6a ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x1df ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x1c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0xfb ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000     0x1011 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x11f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000    0x16749 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x6d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000     0x368c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x190 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x5c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0xca5 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x9e9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x115 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x1a0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0xa5 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x16d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x287 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x5f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x236 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x132 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x29c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x127 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0xe8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x89 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x126 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x58 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x16 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000       0x16 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_line    0x00000000      0xcc6 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_str     0x00000000    0xc0d45 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_frame   0x00000000      0x128 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .ARM.attributes
+                0x00000000       0x34 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .group         0x00000000        0xc ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text          0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .data          0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .bss           0x00000000        0x0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .data.LCD_HEIGHT
+                0x00000000        0x2 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .data.LCD_WIDTH
+                0x00000000        0x2 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_SPI_Init
+                0x00000000       0x14 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_SPI_Send
+                0x00000000       0x28 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Write_Command
+                0x00000000       0x38 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Write_Data
+                0x00000000       0x38 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Set_Address
+                0x00000000       0x98 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Reset
+                0x00000000       0x30 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Set_Rotation
+                0x00000000       0xa4 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Enable
+                0x00000000       0x14 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Init
+                0x00000000      0x21a ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Colour
+                0x00000000       0x50 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Colour_Burst
+                0x00000000      0x110 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Fill_Screen
+                0x00000000       0x4c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Pixel
+                0x00000000      0x16c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Rectangle
+                0x00000000       0xb8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Horizontal_Line
+                0x00000000       0x88 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .text.ILI9341_Draw_Vertical_Line
+                0x00000000       0x88 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_info    0x00000000      0x751 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_abbrev  0x00000000      0x228 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_aranges
+                0x00000000       0x98 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_rnglists
+                0x00000000       0x75 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x1fa ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x28f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x28 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x8e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x51 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x103 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x6a ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x1df ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x1c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x22 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0xfb ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000     0x1011 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x11f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000    0x16749 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x6d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000     0x368c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x190 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x5c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0xca5 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x9e9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x115 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x1a0 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0xa5 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x16d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x287 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x5f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x236 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x132 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x29c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x127 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0xe8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x89 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x126 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0x58 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_line    0x00000000      0xc80 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_str     0x00000000    0xc0d2b ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_frame   0x00000000      0x24c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .ARM.attributes
+                0x00000000       0x34 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/SPI/SPI_DMA.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/SPI/SPI_DMA.o
  .group         0x00000000        0xc ./Core/DRIVERS_V2.0/SPI/SPI_DMA.o
@@ -809,6 +1048,8 @@ Discarded input sections
  .text.Error_Handler
                 0x00000000        0xc ./Core/Src/main.o
  .debug_macro   0x00000000      0xad8 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x28f ./Core/Src/main.o
+ .debug_macro   0x00000000       0x2e ./Core/Src/main.o
  .debug_macro   0x00000000       0x28 ./Core/Src/main.o
  .debug_macro   0x00000000       0x22 ./Core/Src/main.o
  .debug_macro   0x00000000       0x8e ./Core/Src/main.o
@@ -822,7 +1063,27 @@ Discarded input sections
  .debug_macro   0x00000000     0x1011 ./Core/Src/main.o
  .debug_macro   0x00000000      0x11f ./Core/Src/main.o
  .debug_macro   0x00000000    0x16749 ./Core/Src/main.o
+ .debug_macro   0x00000000       0x6d ./Core/Src/main.o
+ .debug_macro   0x00000000     0x368c ./Core/Src/main.o
  .debug_macro   0x00000000      0x190 ./Core/Src/main.o
+ .debug_macro   0x00000000       0x5c ./Core/Src/main.o
+ .debug_macro   0x00000000      0xca5 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x9e9 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x115 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x1a0 ./Core/Src/main.o
+ .debug_macro   0x00000000       0xa5 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x16d ./Core/Src/main.o
+ .debug_macro   0x00000000      0x287 ./Core/Src/main.o
+ .debug_macro   0x00000000       0x5f ./Core/Src/main.o
+ .debug_macro   0x00000000      0x236 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x132 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x29c ./Core/Src/main.o
+ .debug_macro   0x00000000       0x2e ./Core/Src/main.o
+ .debug_macro   0x00000000      0x127 ./Core/Src/main.o
+ .debug_macro   0x00000000       0xe8 ./Core/Src/main.o
+ .debug_macro   0x00000000       0x89 ./Core/Src/main.o
+ .debug_macro   0x00000000      0x126 ./Core/Src/main.o
+ .debug_macro   0x00000000       0x58 ./Core/Src/main.o
  .group         0x00000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
  .group         0x00000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
  .group         0x00000000        0xc ./Core/Src/stm32f4xx_hal_msp.o
@@ -3031,6 +3292,8 @@ LOAD ./Core/DRIVERS_V2.0/EXTI/EXTI.o
 LOAD ./Core/DRIVERS_V2.0/GPIO/GPIO.o
 LOAD ./Core/DRIVERS_V2.0/I2C/I2C_INTERRUPT.o
 LOAD ./Core/DRIVERS_V2.0/I2C/I2C_POLLING.o
+LOAD ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+LOAD ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
 LOAD ./Core/DRIVERS_V2.0/SPI/SPI_DMA.o
 LOAD ./Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.o
 LOAD ./Core/DRIVERS_V2.0/SPI/SPI_POLLING.o
@@ -3733,7 +3996,7 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
  .debug_rnglists
                 0x0000024c       0x19 ./Core/Startup/startup_stm32f446retx.o
 
-.debug_macro    0x00000000    0x2071f
+.debug_macro    0x00000000    0x1a48a
  .debug_macro   0x00000000       0xdc ./Core/DRIVERS_V2.0/ADC/ADC.o
  .debug_macro   0x000000dc      0xad8 ./Core/DRIVERS_V2.0/ADC/ADC.o
  .debug_macro   0x00000bb4       0x22 ./Core/DRIVERS_V2.0/ADC/ADC.o
@@ -3758,51 +4021,29 @@ LOAD C:/Users/pc/Documents/STM32CubeIDE_1.19.0/STM32CubeIDE/plugins/com.st.stm32
  .debug_macro   0x00018f96       0xdd ./Core/DRIVERS_V2.0/SPI/SPI_INTERRUPT.o
  .debug_macro   0x00019073       0xdc ./Core/DRIVERS_V2.0/UART/UART.o
  .debug_macro   0x0001914f      0x303 ./Core/Src/main.o
- .debug_macro   0x00019452      0x28f ./Core/Src/main.o
- .debug_macro   0x000196e1       0x2e ./Core/Src/main.o
- .debug_macro   0x0001970f       0x6d ./Core/Src/main.o
- .debug_macro   0x0001977c     0x368c ./Core/Src/main.o
- .debug_macro   0x0001ce08       0x5c ./Core/Src/main.o
- .debug_macro   0x0001ce64      0xca5 ./Core/Src/main.o
- .debug_macro   0x0001db09      0x9e9 ./Core/Src/main.o
- .debug_macro   0x0001e4f2      0x115 ./Core/Src/main.o
- .debug_macro   0x0001e607      0x1a0 ./Core/Src/main.o
- .debug_macro   0x0001e7a7       0xa5 ./Core/Src/main.o
- .debug_macro   0x0001e84c      0x16d ./Core/Src/main.o
- .debug_macro   0x0001e9b9      0x287 ./Core/Src/main.o
- .debug_macro   0x0001ec40       0x5f ./Core/Src/main.o
- .debug_macro   0x0001ec9f      0x236 ./Core/Src/main.o
- .debug_macro   0x0001eed5      0x132 ./Core/Src/main.o
- .debug_macro   0x0001f007      0x29c ./Core/Src/main.o
- .debug_macro   0x0001f2a3       0x2e ./Core/Src/main.o
- .debug_macro   0x0001f2d1      0x127 ./Core/Src/main.o
- .debug_macro   0x0001f3f8       0xe8 ./Core/Src/main.o
- .debug_macro   0x0001f4e0       0x89 ./Core/Src/main.o
- .debug_macro   0x0001f569      0x126 ./Core/Src/main.o
- .debug_macro   0x0001f68f       0x58 ./Core/Src/main.o
- .debug_macro   0x0001f6e7       0x61 ./Core/Src/main.o
- .debug_macro   0x0001f748       0x2a ./Core/Src/main.o
- .debug_macro   0x0001f772       0x43 ./Core/Src/main.o
- .debug_macro   0x0001f7b5       0x34 ./Core/Src/main.o
- .debug_macro   0x0001f7e9       0x16 ./Core/Src/main.o
- .debug_macro   0x0001f7ff       0x3c ./Core/Src/main.o
- .debug_macro   0x0001f83b      0x370 ./Core/Src/main.o
- .debug_macro   0x0001fbab       0x10 ./Core/Src/main.o
- .debug_macro   0x0001fbbb       0x16 ./Core/Src/main.o
- .debug_macro   0x0001fbd1       0x4a ./Core/Src/main.o
- .debug_macro   0x0001fc1b       0x34 ./Core/Src/main.o
- .debug_macro   0x0001fc4f       0x10 ./Core/Src/main.o
- .debug_macro   0x0001fc5f       0x58 ./Core/Src/main.o
- .debug_macro   0x0001fcb7       0x8e ./Core/Src/main.o
- .debug_macro   0x0001fd45       0x1c ./Core/Src/main.o
- .debug_macro   0x0001fd61      0x185 ./Core/Src/main.o
- .debug_macro   0x0001fee6       0x16 ./Core/Src/main.o
- .debug_macro   0x0001fefc       0x16 ./Core/Src/main.o
- .debug_macro   0x0001ff12      0x146 ./Core/Src/main.o
- .debug_macro   0x00020058      0x1c9 ./Core/Src/stm32f4xx_it.o
- .debug_macro   0x00020221      0x112 ./Core/Src/sysmem.o
- .debug_macro   0x00020333      0x23c ./Core/Src/sysmem.o
- .debug_macro   0x0002056f      0x1b0 ./Core/Src/system_stm32f4xx.o
+ .debug_macro   0x00019452       0x61 ./Core/Src/main.o
+ .debug_macro   0x000194b3       0x2a ./Core/Src/main.o
+ .debug_macro   0x000194dd       0x43 ./Core/Src/main.o
+ .debug_macro   0x00019520       0x34 ./Core/Src/main.o
+ .debug_macro   0x00019554       0x16 ./Core/Src/main.o
+ .debug_macro   0x0001956a       0x3c ./Core/Src/main.o
+ .debug_macro   0x000195a6      0x370 ./Core/Src/main.o
+ .debug_macro   0x00019916       0x10 ./Core/Src/main.o
+ .debug_macro   0x00019926       0x16 ./Core/Src/main.o
+ .debug_macro   0x0001993c       0x4a ./Core/Src/main.o
+ .debug_macro   0x00019986       0x34 ./Core/Src/main.o
+ .debug_macro   0x000199ba       0x10 ./Core/Src/main.o
+ .debug_macro   0x000199ca       0x58 ./Core/Src/main.o
+ .debug_macro   0x00019a22       0x8e ./Core/Src/main.o
+ .debug_macro   0x00019ab0       0x1c ./Core/Src/main.o
+ .debug_macro   0x00019acc      0x185 ./Core/Src/main.o
+ .debug_macro   0x00019c51       0x16 ./Core/Src/main.o
+ .debug_macro   0x00019c67       0x16 ./Core/Src/main.o
+ .debug_macro   0x00019c7d      0x146 ./Core/Src/main.o
+ .debug_macro   0x00019dc3      0x1c9 ./Core/Src/stm32f4xx_it.o
+ .debug_macro   0x00019f8c      0x112 ./Core/Src/sysmem.o
+ .debug_macro   0x0001a09e      0x23c ./Core/Src/sysmem.o
+ .debug_macro   0x0001a2da      0x1b0 ./Core/Src/system_stm32f4xx.o
 
 .debug_line     0x00000000     0x6860
  .debug_line    0x00000000      0x8da ./Core/DRIVERS_V2.0/ADC/ADC.o

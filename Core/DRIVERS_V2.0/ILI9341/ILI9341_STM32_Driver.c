@@ -84,8 +84,8 @@
 #include "ILI9341_STM32_Driver.h"
 //#include "spi.h"
 //#include "gpio.h"
-#include "FreeRTOS.h"
-#include "task.h"
+//#include "FreeRTOS.h"
+//#include "task.h"
 
 /* Global Variables ------------------------------------------------------------------ */
 volatile uint16_t LCD_HEIGHT = ILI9341_SCREEN_HEIGHT;
@@ -95,13 +95,15 @@ volatile uint16_t LCD_WIDTH = ILI9341_SCREEN_WIDTH;
 void ILI9341_SPI_Init(void) {
 //GPIO INIT
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);	//CS OFF
-	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN); //new
+	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 /*Send data (char) to LCD*/
 void ILI9341_SPI_Send(unsigned char SPI_Data) {
 //HAL_SPI_Transmit(&hspi1, &SPI_Data, 1, 1);
-	SPIx_Transmit(SPI1,&SPI_Data,1);
+	//SPIx_Transmit(SPI1,&SPI_Data,1);
+	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, &SPI_Data, 1);
 }
 /* Send command (char) to LCD */
 void ILI9341_Write_Command(uint8_t Command) {
@@ -110,10 +112,15 @@ void ILI9341_Write_Command(uint8_t Command) {
 //ILI9341_SPI_Send(Command);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	/*SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
 	ILI9341_SPI_Send(Command);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
+
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	ILI9341_SPI_Send(Command);
+	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 /* Send Data (char) to LCD */
@@ -123,10 +130,15 @@ void ILI9341_Write_Data(uint8_t Data) {
 //ILI9341_SPI_Send(Data);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	/*SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
 	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(Data);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
+
+	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	ILI9341_SPI_Send(Data);
+	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 /* Set Address - Location block - to draw into */
@@ -150,14 +162,19 @@ void ILI9341_Set_Address(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2) {
 void ILI9341_Reset(void) {
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_RESET);
 //HAL_Delay(200);
-	SPIx_pin_LOW(LCD_RST_PORT, LCD_RST_PIN);
-	vTaskDelay(pdMS_TO_TICKS(200));
+	//SPIx_pin_LOW(LCD_RST_PORT, LCD_RST_PIN);
+	//vTaskDelay(pdMS_TO_TICKS(200));
+	SPIx_POLLING_CS_LOW(LCD_RST_PORT, LCD_RST_PIN);
+	delay_ms(200);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
 //HAL_Delay(200);
-	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	vTaskDelay(pdMS_TO_TICKS(200));
+	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	//vTaskDelay(pdMS_TO_TICKS(200));
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	delay_ms(200);
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_SET);
-	SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	//SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_RST_PORT, LCD_RST_PIN);
 }
 
 /*Ser rotation of the screen - changes x0 and y0*/
@@ -167,7 +184,8 @@ void ILI9341_Set_Rotation(uint8_t Rotation) {
 
 	ILI9341_Write_Command(0x36);
 //HAL_Delay(1);
-	vTaskDelay(pdMS_TO_TICKS(1));
+	//vTaskDelay(pdMS_TO_TICKS(1));
+	delay_ms(1);
 
 	switch (screen_rotation) {
 	case SCREEN_VERTICAL_1:
@@ -199,7 +217,8 @@ void ILI9341_Set_Rotation(uint8_t Rotation) {
 /*Enable LCD display*/
 void ILI9341_Enable(void) {
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_SET);
-	SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	//SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_RST_PORT, LCD_RST_PIN);
 }
 
 /*Initialize LCD display*/
@@ -212,8 +231,8 @@ void ILI9341_Init(void) {
 	//SOFTWARE RESET
 	ILI9341_Write_Command(0x01);
 //HAL_Delay(1000);
-	vTaskDelay(pdMS_TO_TICKS(1000));
-
+	//vTaskDelay(pdMS_TO_TICKS(1000));
+	delay_ms(1000);
 //POWER CONTROL A
 	ILI9341_Write_Command(0xCB);
 	ILI9341_Write_Data(0x39);
@@ -333,8 +352,8 @@ void ILI9341_Init(void) {
 //EXIT SLEEP
 	ILI9341_Write_Command(0x11);
 //HAL_Delay(120);
-	vTaskDelay(pdMS_TO_TICKS(120));
-
+	//vTaskDelay(pdMS_TO_TICKS(120));
+	delay_ms(120);
 //TURN ON DISPLAY
 	ILI9341_Write_Command(0x29);
 
@@ -349,12 +368,16 @@ void ILI9341_Draw_Colour(uint16_t Colour) {
 	unsigned char TempBuffer[2] = { Colour >> 8, Colour };
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
-	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+
+	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	//HAL_SPI_Transmit(&hspi1, TempBuffer, 2, 1);
 	SPIx_Transmit(SPI1,TempBuffer,2);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 //INTERNAL FUNCTION OF LIBRARY
@@ -370,8 +393,10 @@ void ILI9341_Draw_Colour_Burst(uint16_t Colour, uint32_t Size) {
 
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
-	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
 
 	unsigned char chifted = Colour >> 8;
 	;
@@ -397,7 +422,8 @@ void ILI9341_Draw_Colour_Burst(uint16_t Colour, uint32_t Size) {
 	SPIx_Transmit(SPI1,burst_buffer,Buffer_Size);
 
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 //FILL THE ENTIRE SCREEN WITH SELECTED COLOUR (either #define-d ones or custom 16bit)
@@ -424,11 +450,17 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	/*SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
 	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(0x2A);
 	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
+
+	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	ILI9341_SPI_Send(0x2A);
+	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 	
 //XDATA
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
