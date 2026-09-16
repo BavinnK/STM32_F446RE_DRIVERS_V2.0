@@ -451,14 +451,14 @@ Discarded input sections
  .text.ILI9341_Draw_Text
                 0x00000000       0x5e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .text.ILI9341_Draw_Image
-                0x00000000      0x330 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
- .debug_info    0x00000000      0x99b ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
- .debug_abbrev  0x00000000      0x1e6 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+                0x00000000      0x334 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_info    0x00000000      0x925 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_abbrev  0x00000000      0x1cb ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_aranges
                 0x00000000       0x50 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_rnglists
                 0x00000000       0x3d ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
- .debug_macro   0x00000000      0x20c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_macro   0x00000000      0x216 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_macro   0x00000000      0x28f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
@@ -499,8 +499,8 @@ Discarded input sections
  .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_macro   0x00000000       0x16 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_macro   0x00000000       0x16 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
- .debug_line    0x00000000      0xcc6 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
- .debug_str     0x00000000    0xc0d45 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_line    0x00000000      0xd23 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
+ .debug_str     0x00000000    0xc0d82 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .debug_frame   0x00000000      0x128 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_GFX.o
  .ARM.attributes
@@ -569,26 +569,26 @@ Discarded input sections
  .text.ILI9341_Init
                 0x00000000      0x21a ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Colour
-                0x00000000       0x50 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+                0x00000000       0x54 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Colour_Burst
                 0x00000000      0x110 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Fill_Screen
                 0x00000000       0x4c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Pixel
-                0x00000000      0x16c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+                0x00000000      0x170 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Rectangle
                 0x00000000       0xb8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Horizontal_Line
                 0x00000000       0x88 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .text.ILI9341_Draw_Vertical_Line
                 0x00000000       0x88 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
- .debug_info    0x00000000      0x751 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
- .debug_abbrev  0x00000000      0x228 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_info    0x00000000      0x68e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_abbrev  0x00000000      0x1c9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_aranges
                 0x00000000       0x98 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_rnglists
                 0x00000000       0x75 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
- .debug_macro   0x00000000      0x1fa ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_macro   0x00000000      0x204 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_macro   0x00000000      0xad8 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_macro   0x00000000      0x28f ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_macro   0x00000000       0x2e ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
@@ -627,8 +627,8 @@ Discarded input sections
  .debug_macro   0x00000000      0x126 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_macro   0x00000000       0x58 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_macro   0x00000000       0xc9 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
- .debug_line    0x00000000      0xc80 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
- .debug_str     0x00000000    0xc0d2b ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_line    0x00000000      0xce2 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
+ .debug_str     0x00000000    0xc0d0b ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .comment       0x00000000       0x44 ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .debug_frame   0x00000000      0x24c ./Core/DRIVERS_V2.0/ILI9341/ILI9341_STM32_Driver.o
  .ARM.attributes

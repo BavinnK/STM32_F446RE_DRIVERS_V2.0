@@ -87,7 +87,7 @@
 #include "stm32f4xx_hal.h"
 
 #include "SPI/SPI_DMA.h"
-
+#include "DELAY.h"
 #define ILI9341_SCREEN_HEIGHT 240 
 #define ILI9341_SCREEN_WIDTH 	320
 
