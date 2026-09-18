@@ -43,6 +43,10 @@ typedef struct{
 	cpha_spi clock_phase;
 	uint8_t cs_pin;
 	GPIO_TypeDef *cs_port;
+	uint8_t dc_pin;
+	GPIO_TypeDef *dc_port;
+	uint8_t rst_pin;
+	GPIO_TypeDef *rst_port;
 }spi_polling_config_t;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -58,8 +62,8 @@ void SPIx_POLLING_init(SPI_TypeDef *spi,spi_polling_config_t *config);
 uint8_t SPIx_POLLING_transfer(SPI_TypeDef *spi,uint8_t data);
 void SPIx_POLLING_transmit(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length);
 void SPIx_POLLING_receive(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length);
-void SPIx_POLLING_CS_LOW(GPIO_TypeDef *port,uint8_t CS);
-void SPIx_POLLING_CS_HIGH(GPIO_TypeDef *port,uint8_t CS);
+void SPIx_pin_LOW(GPIO_TypeDef *port,uint8_t CS);
+void SPIx_pin_HIGH(GPIO_TypeDef *port,uint8_t CS);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // END FUNCTION PROTOTYPES

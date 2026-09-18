@@ -6,9 +6,9 @@ static GPIO_TypeDef *port_cs;
 // INLINE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
+static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *CS_PORT,uint8_t CS, GPIO_TypeDef * DC_PORT, uint8_t DC, GPIO_TypeDef *RST_PORT, uint8_t RST){
 	if(spi==SPI1){
-		gpio_config_t config_spi_MOSI,config_spi_MISO,config_spi_SCLK,config_spi_CS;
+		gpio_config_t config_spi_MOSI,config_spi_MISO,config_spi_SCLK,config_spi_CS, config_spi_DC, config_spi_RST;
 		config_spi_MOSI.pin=7;//PA7
 		config_spi_MOSI.mode=GPIOx_MODE_ALTERNATE;
 		config_spi_MOSI.speed=GPIOx_SPEED_HIGH_SPEED;
@@ -33,10 +33,25 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 		config_spi_CS.otype=GPIOx_OTYPE_PUSH_PULL;
 		config_spi_CS.pupdr=GPIOx_PUPDR_DISABLE;
 
+		config_spi_DC.pin=DC;//user provided pin
+		config_spi_DC.mode=GPIOx_MODE_OUTPUT;
+		config_spi_DC.speed=GPIOx_SPEED_HIGH_SPEED;
+		config_spi_DC.otype=GPIOx_OTYPE_PUSH_PULL;
+		config_spi_DC.pupdr=GPIOx_PUPDR_DISABLE;
+
+		config_spi_RST.pin=RST;//user provided pin
+		config_spi_RST.mode=GPIOx_MODE_OUTPUT;
+		config_spi_RST.speed=GPIOx_SPEED_HIGH_SPEED;
+		config_spi_RST.otype=GPIOx_OTYPE_PUSH_PULL;
+		config_spi_RST.pupdr=GPIOx_PUPDR_DISABLE;
+
+
 		GPIO_init(GPIOA, &config_spi_MOSI);
 		GPIO_init(GPIOA, &config_spi_MISO);
 		GPIO_init(GPIOA, &config_spi_SCLK);
-		GPIO_init(port, &config_spi_CS);
+		GPIO_init(CS_PORT, &config_spi_CS);
+		GPIO_init(DC_PORT, &config_spi_DC);
+		GPIO_init(RST_PORT, &config_spi_RST);
 
 		GPIOA->AFR[0]&=~((15<<(7*4))|(15<<(6*4))|(15<<(5*4)));
 		GPIOA->AFR[0]|=(5<<(7*4))|(5<<(6*4))|(5<<(5*4));
@@ -71,7 +86,7 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 		GPIO_init(GPIOC, &config_spi_MOSI);
 		GPIO_init(GPIOC, &config_spi_MISO);
 		GPIO_init(GPIOB, &config_spi_SCLK);
-		GPIO_init(port, &config_spi_CS);
+		GPIO_init(CS_PORT, &config_spi_CS);
 
 		GPIOC->AFR[0]&=~((0b1111<<4*1)|(0b1111<<4*2));
 		GPIOB->AFR[1]&=~(0b1111<<4*(10-8));
@@ -93,7 +108,7 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void SPIx_Dma_init(SPI_TypeDef *spi, spi_dma_config_t *config){
-	spi_set(spi, config->cs_port, config->cs_pin);
+	spi_set(spi, config->cs_port, config->cs_pin, config->dc_port, config->dc_pin, config->rst_port, config->rst_pin);
 	cs=config->cs_pin;
 	port_cs=config->cs_port;
 	spi->CR1&=~(1<<6);
@@ -108,8 +123,10 @@ void SPIx_Dma_Transmit(SPI_TypeDef *spi, DMA_Stream_TypeDef *stream, uint8_t *bu
 	stream->CR&=~(1<<0);
 	stream->CR&=~(3<<6);
 	stream->CR|=(1<<6);
+	stream->CR |= (1 << 10); // Enable Memory Increment Mode
 	stream->NDTR=length;
 	stream->M0AR=(uint32_t)buffer;
+	stream->M1AR=0;
 	stream->PAR=(uint32_t)&spi->DR;
 }
 

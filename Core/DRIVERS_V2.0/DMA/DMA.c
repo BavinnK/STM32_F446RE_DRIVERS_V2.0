@@ -55,7 +55,8 @@ void DMAx_init(DMA_TypeDef *DMAx,dma_config_t *dma){
 	dma->stream->PAR=(uint32_t)dma->per_addr;
 	dma->stream->M0AR=(uint32_t)dma->mem_addr;
 	dma->stream->M1AR=0;
-	dma->stream->CR|=(1<<0);
+	dma->stream->CR|=(1<<10);
+	dma->stream->CR&=~(1<<0);
 }
 
 

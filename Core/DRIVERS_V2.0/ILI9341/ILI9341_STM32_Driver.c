@@ -84,9 +84,7 @@
 #include "ILI9341_STM32_Driver.h"
 //#include "spi.h"
 //#include "gpio.h"
-//#include "FreeRTOS.h"
-//#include "task.h"
-#include "DELAY.h"
+
 
 /* Global Variables ------------------------------------------------------------------ */
 volatile uint16_t LCD_HEIGHT = ILI9341_SCREEN_HEIGHT;
@@ -96,15 +94,13 @@ volatile uint16_t LCD_WIDTH = ILI9341_SCREEN_WIDTH;
 void ILI9341_SPI_Init(void) {
 //GPIO INIT
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);	//CS OFF
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN); //new
 }
 
 /*Send data (char) to LCD*/
 void ILI9341_SPI_Send(unsigned char SPI_Data) {
 //HAL_SPI_Transmit(&hspi1, &SPI_Data, 1, 1);
-	//SPIx_Transmit(SPI1,&SPI_Data,1);
-	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, &SPI_Data, 1);
+	SPIx_POLLING_transmit(SPI1,&SPI_Data,1);
 }
 /* Send command (char) to LCD */
 void ILI9341_Write_Command(uint8_t Command) {
@@ -113,15 +109,10 @@ void ILI9341_Write_Command(uint8_t Command) {
 //ILI9341_SPI_Send(Command);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	/*SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
 	ILI9341_SPI_Send(Command);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
-
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	ILI9341_SPI_Send(Command);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 /* Send Data (char) to LCD */
@@ -131,15 +122,10 @@ void ILI9341_Write_Data(uint8_t Data) {
 //ILI9341_SPI_Send(Data);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	/*SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
 	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(Data);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
-
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	ILI9341_SPI_Send(Data);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 /* Set Address - Location block - to draw into */
@@ -163,19 +149,16 @@ void ILI9341_Set_Address(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2) {
 void ILI9341_Reset(void) {
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_RESET);
 //HAL_Delay(200);
-	//SPIx_pin_LOW(LCD_RST_PORT, LCD_RST_PIN);
+	SPIx_pin_LOW(LCD_RST_PORT, LCD_RST_PIN);
 	//vTaskDelay(pdMS_TO_TICKS(200));
-	SPIx_POLLING_CS_LOW(LCD_RST_PORT, LCD_RST_PIN);
 	delay_ms(200);
 //HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
 //HAL_Delay(200);
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	//vTaskDelay(pdMS_TO_TICKS(200));
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	delay_ms(200);
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_SET);
-	//SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
 }
 
 /*Ser rotation of the screen - changes x0 and y0*/
@@ -184,10 +167,9 @@ void ILI9341_Set_Rotation(uint8_t Rotation) {
 	uint8_t screen_rotation = Rotation;
 
 	ILI9341_Write_Command(0x36);
-//HAL_Delay(1);
+	//HAL_Delay(1);
 	//vTaskDelay(pdMS_TO_TICKS(1));
 	delay_ms(1);
-
 	switch (screen_rotation) {
 	case SCREEN_VERTICAL_1:
 		ILI9341_Write_Data(0x40 | 0x08);
@@ -218,8 +200,7 @@ void ILI9341_Set_Rotation(uint8_t Rotation) {
 /*Enable LCD display*/
 void ILI9341_Enable(void) {
 //HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_SET);
-	//SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_RST_PORT, LCD_RST_PIN);
+	SPIx_pin_HIGH(LCD_RST_PORT, LCD_RST_PIN);
 }
 
 /*Initialize LCD display*/
@@ -369,17 +350,12 @@ void ILI9341_Draw_Colour(uint16_t Colour) {
 	unsigned char TempBuffer[2] = { Colour >> 8, Colour };
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
-	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	//HAL_SPI_Transmit(&hspi1, TempBuffer, 2, 1);
-	//SPIx_Transmit(SPI1,TempBuffer,2);
+	SPIx_POLLING_transmit(SPI1,TempBuffer,2);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, TempBuffer, 2);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 //INTERNAL FUNCTION OF LIBRARY
@@ -395,10 +371,8 @@ void ILI9341_Draw_Colour_Burst(uint16_t Colour, uint32_t Size) {
 
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
-	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 
 	unsigned char chifted = Colour >> 8;
 	;
@@ -415,18 +389,16 @@ void ILI9341_Draw_Colour_Burst(uint16_t Colour, uint32_t Size) {
 	if (Sending_in_Block != 0) {
 		for (uint32_t j = 0; j < (Sending_in_Block); j++) {
 			//HAL_SPI_Transmit(&hspi1, (unsigned char*) burst_buffer, Buffer_Size,10);
-			//SPIx_Transmit(SPI1,burst_buffer,Buffer_Size);
-			SPIx_Dma_Transmit(SPI1, DMA2_Stream3, burst_buffer, Buffer_Size);
+			SPIx_POLLING_transmit(SPI1,burst_buffer,Buffer_Size);
 		}
 	}
 
 //REMAINDER!
 	//HAL_SPI_Transmit(&hspi1, (unsigned char*) burst_buffer,Remainder_from_block, 10);
-	//SPIx_Transmit(SPI1,burst_buffer,Buffer_Size);
+	SPIx_POLLING_transmit(SPI1,burst_buffer,Buffer_Size);
 
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 //FILL THE ENTIRE SCREEN WITH SELECTED COLOUR (either #define-d ones or custom 16bit)
@@ -453,17 +425,11 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	/*SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
 	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(0x2A);
 	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
-
-	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	ILI9341_SPI_Send(0x2A);
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 	
 //XDATA
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
@@ -471,16 +437,11 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_SPI_Transmit(&hspi1, Temp_Buffer, 4, 1);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	/*SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_Transmit(SPI1,Temp_Buffer, 4);
-	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);*/
-
-
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	unsigned char Temp_Buffer[4] = { X >> 8, X, (X + 1) >> 8, (X + 1) };
-	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, Temp_Buffer, 4);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_transmit(SPI1,Temp_Buffer, 4);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+
 //ADDRESS
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_RESET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
@@ -488,17 +449,11 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	//SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	//ILI9341_SPI_Send(0x2B);
-	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(0x2B);
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 
 //YDATA
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
@@ -506,15 +461,10 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_SPI_Transmit(&hspi1, Temp_Buffer1, 4, 1);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-
-	//SPIx_Transmit(SPI1,Temp_Buffer1, 4);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	unsigned char Temp_Buffer1[4] = { Y >> 8, Y, (Y + 1) >> 8, (Y + 1) };
-	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, Temp_Buffer1, 4);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_transmit(SPI1,Temp_Buffer1, 4);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 //ADDRESS	
 
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_RESET);
@@ -523,32 +473,21 @@ void ILI9341_Draw_Pixel(uint16_t X, uint16_t Y, uint16_t Colour) {
 	//HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	//SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
-	//ILI9341_SPI_Send(0x2C);
-	//SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_LOW(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_CS_PORT, LCD_CS_PIN);
 	ILI9341_SPI_Send(0x2C);
-	SPIx_POLLING_CS_HIGH(LCD_DC_PORT, LCD_DC_PIN);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_pin_HIGH(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 //COLOUR	
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_RESET);
 	//unsigned char Temp_Buffer2[2] = { Colour >> 8, Colour };
 	//HAL_SPI_Transmit(&hspi1, Temp_Buffer2, 2, 1);
 	//HAL_GPIO_WritePin(LCD_CS_PORT, LCD_CS_PIN, GPIO_PIN_SET);
 
-	//SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
-
-	//SPIx_Transmit(SPI1,Temp_Buffer2, 2);
-	//SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
-
-	SPIx_POLLING_CS_LOW(LCD_DC_PORT, LCD_DC_PIN);
+	SPIx_pin_LOW(LCD_DC_PORT, LCD_DC_PIN);
 	unsigned char Temp_Buffer2[2] = { Colour >> 8, Colour };
-	SPIx_Dma_Transmit(SPI1, DMA2_Stream3, Temp_Buffer2, 2);
-	SPIx_POLLING_CS_HIGH(LCD_CS_PORT, LCD_CS_PIN);
+	SPIx_POLLING_transmit(SPI1,Temp_Buffer2, 2);
+	SPIx_pin_HIGH(LCD_CS_PORT, LCD_CS_PIN);
 }
 
 //DRAW RECTANGLE OF SET SIZE AND HEIGTH AT X and Y POSITION WITH CUSTOM COLOUR

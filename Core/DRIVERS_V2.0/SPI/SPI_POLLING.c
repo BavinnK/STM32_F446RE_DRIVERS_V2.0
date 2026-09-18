@@ -4,9 +4,9 @@
 // INLINE FUNCTIONS
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
+static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *CS_PORT,uint8_t CS, GPIO_TypeDef * DC_PORT, uint8_t DC, GPIO_TypeDef *RST_PORT, uint8_t RST){
 	if(spi==SPI1){
-		gpio_config_t config_spi_MOSI,config_spi_MISO,config_spi_SCLK,config_spi_CS;
+		gpio_config_t config_spi_MOSI,config_spi_MISO,config_spi_SCLK,config_spi_CS, config_spi_DC, config_spi_RST;
 		config_spi_MOSI.pin=7;//PA7
 		config_spi_MOSI.mode=GPIOx_MODE_ALTERNATE;
 		config_spi_MOSI.speed=GPIOx_SPEED_HIGH_SPEED;
@@ -31,10 +31,25 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 		config_spi_CS.otype=GPIOx_OTYPE_PUSH_PULL;
 		config_spi_CS.pupdr=GPIOx_PUPDR_DISABLE;
 
+		config_spi_DC.pin=DC;//user provided pin
+		config_spi_DC.mode=GPIOx_MODE_OUTPUT;
+		config_spi_DC.speed=GPIOx_SPEED_HIGH_SPEED;
+		config_spi_DC.otype=GPIOx_OTYPE_PUSH_PULL;
+		config_spi_DC.pupdr=GPIOx_PUPDR_DISABLE;
+
+		config_spi_RST.pin=RST;//user provided pin
+		config_spi_RST.mode=GPIOx_MODE_OUTPUT;
+		config_spi_RST.speed=GPIOx_SPEED_HIGH_SPEED;
+		config_spi_RST.otype=GPIOx_OTYPE_PUSH_PULL;
+		config_spi_RST.pupdr=GPIOx_PUPDR_DISABLE;
+
+
 		GPIO_init(GPIOA, &config_spi_MOSI);
 		GPIO_init(GPIOA, &config_spi_MISO);
 		GPIO_init(GPIOA, &config_spi_SCLK);
-		GPIO_init(port, &config_spi_CS);
+		GPIO_init(CS_PORT, &config_spi_CS);
+		GPIO_init(DC_PORT, &config_spi_DC);
+		GPIO_init(RST_PORT, &config_spi_RST);
 
 		GPIOA->AFR[0]&=~((15<<(7*4))|(15<<(6*4))|(15<<(5*4)));
 		GPIOA->AFR[0]|=(5<<(7*4))|(5<<(6*4))|(5<<(5*4));
@@ -69,7 +84,7 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 		GPIO_init(GPIOC, &config_spi_MOSI);
 		GPIO_init(GPIOC, &config_spi_MISO);
 		GPIO_init(GPIOB, &config_spi_SCLK);
-		GPIO_init(port, &config_spi_CS);
+		GPIO_init(CS_PORT, &config_spi_CS);
 
 		GPIOC->AFR[0]&=~((0b1111<<4*1)|(0b1111<<4*2));
 		GPIOB->AFR[1]&=~(0b1111<<4*(10-8));
@@ -91,7 +106,7 @@ static inline void spi_set(SPI_TypeDef *spi,GPIO_TypeDef *port,uint8_t CS){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 void SPIx_POLLING_init(SPI_TypeDef *spi,spi_polling_config_t *config){
-	spi_set(spi, config->cs_port, config->cs_pin);
+	spi_set(spi, config->cs_port, config->cs_pin, config->dc_port, config->dc_pin, config->rst_port, config->rst_pin);
 	spi->CR1&=~(1<<6);
 	spi->CR1&=~((1<<11)|(1<<10)|(1<<7)|(7<<3)|(1<<1)|(1<<0));
 	spi->CR1|=(config->data_format<<11)|(1<<9)|(1<<8)|(config->frame_format<<7)|(config->prescaler<<3)|(1<<2)|(config->clock_polarity<<1)|(config->clock_phase<<0);
@@ -109,7 +124,10 @@ uint8_t SPIx_POLLING_transfer(SPI_TypeDef *spi,uint8_t data){
 
 void SPIx_POLLING_transmit(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
 	for(uint32_t i=0;i<length;i++){
-		SPIx_POLLING_transfer(spi, *buffer++);
+		while(!(spi->SR&(1<<1)));
+		spi->DR=*buffer++;
+		while(!(spi->SR&(1<<0)));
+		(void) spi->DR;
 	}
 }
 void SPIx_POLLING_receive(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
@@ -118,10 +136,10 @@ void SPIx_POLLING_receive(SPI_TypeDef *spi, uint8_t *buffer, uint32_t length){
 	}
 }
 
-void SPIx_POLLING_CS_LOW(GPIO_TypeDef *port,uint8_t CS){
+void SPIx_pin_LOW(GPIO_TypeDef *port,uint8_t CS){
 	GPIO_set_level(port, CS, 0);
 }
-void SPIx_POLLING_CS_HIGH(GPIO_TypeDef *port,uint8_t CS){
+void SPIx_pin_HIGH(GPIO_TypeDef *port,uint8_t CS){
 	GPIO_set_level(port, CS, 1);
 }
 

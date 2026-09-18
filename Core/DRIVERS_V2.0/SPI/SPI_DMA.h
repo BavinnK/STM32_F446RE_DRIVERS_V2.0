@@ -19,6 +19,10 @@ typedef struct{
 	cpha_spi clock_phase;
 	uint8_t cs_pin;
 	GPIO_TypeDef *cs_port;
+	uint8_t dc_pin;
+	GPIO_TypeDef *dc_port;
+	uint8_t rst_pin;
+	GPIO_TypeDef *rst_port;
 }spi_dma_config_t;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

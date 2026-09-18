@@ -33,6 +33,10 @@
 #include "TIM_OC.h"
 #include "EXTI.h"
 #include "I2C_INTERRUPT.h"
+#include "5x5_font.h"
+#include "ILI9341_GFX.h"
+#include "ILI9341_STM32_Driver.h"
+#include "SPI/SPI_DMA.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,6 +97,35 @@ int main(void)
 	 delay_ms(1000);
 
 
+	 	spi_polling_config_t ili9341_spi = {
+
+	 	    .data_format    = BIT8_FORMAT_SPI,
+	 	    .frame_format   = MSB_FIRST_SPI,
+	 	    .prescaler      = 2,              // PCLK / 8
+
+	 	    .clock_polarity = CK0_IDLE_SPI,
+	 	    .clock_phase    = FIRST_CLK_SPI,
+
+	 	    .cs_pin         = 1,
+	 	    .cs_port        = GPIOB,
+
+	 	    .dc_pin         = 15,
+	 	    .dc_port        = GPIOB,
+
+	 	    .rst_pin        = 14,
+	 	    .rst_port       = GPIOB
+	 	};
+
+	 	SPIx_POLLING_init(SPI1, &ili9341_spi);
+	 	delay_ms(1000);
+
+	 	ILI9341_Init();
+
+	 		ILI9341_Set_Rotation(SCREEN_HORIZONTAL_2);
+	 		ILI9341_Fill_Screen(BLACK); //clear screen
+	 		ILI9341_Draw_Text("BAVREX ENGINEERING", 40, 100, BLUE, 2, BLACK);
+
+	 		ILI9341_Draw_Text("ECU Online", 90, 130, GREEN, 2, BLACK);
 	char buff[200];
 //uint8_t guz=I2Cx_Interrupt_Read(I2C1, 0x68, 0x75, &buffer, 1);
 	while (1)
